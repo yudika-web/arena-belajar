@@ -1,5 +1,19 @@
 [
   {
+    "title": "Misi Petani Muda",
+    "category": "Game",
+    "description": "Belajar pertumbuhan dan perkembangan dengan cara yang seru",
+    "image": "https://raw.githubusercontent.com/yudika-web/game-misi-petani-muda/refs/heads/main/misi%20petani%20muda.png",
+    "url": "https://yudika-web.github.io/game-misi-petani-muda/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-09-25",
+    "cta": "Mulai misi",
+    "newTab": true,
+    "id": "a481f7f5-45a8-426e-a3e6-174dc80899ba"
+  },
+  {
     "title": "Blood Journey",
     "category": "MPI",
     "description": "Belajar seru sistem transportasi pada manusia dan sel darah",
