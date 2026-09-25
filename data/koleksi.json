@@ -1,5 +1,19 @@
 [
   {
+    "title": "Blood Journey",
+    "category": "MPI",
+    "description": "Belajar seru sistem transportasi pada manusia dan sel darah",
+    "image": "https://raw.githubusercontent.com/yudika-web/mpi-blood-journey/main/ChatGPT%20Image%2024%20Sep%202026%2C%2018.41.17.png",
+    "url": "https://yudika-web.github.io/mpi-blood-journey/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-09-25",
+    "cta": "Mulai misi",
+    "newTab": true,
+    "id": "0230929c-e8ef-42e5-afe3-5f69efbb08b3"
+  },
+  {
     "title": "Jelajah Gaya",
     "category": "MPI",
     "description": "Belajar hukum Newton jadi asyik",
