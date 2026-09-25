@@ -1,5 +1,19 @@
 [
   {
+    "title": "Eksplorasi Tekanan Zat",
+    "category": "MPI",
+    "description": "Apa yang terjadi jika kita menyelam terlalu dalam?",
+    "image": "https://raw.githubusercontent.com/yudika-web/mpi-tekanan-zat/main/Tekanan%20Zat.png",
+    "url": "https://yudika-web.github.io/mpi-tekanan-zat/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-09-25",
+    "cta": "Mulai misi",
+    "newTab": true,
+    "id": "b121d5bc-f94e-4ec4-acd7-86db2618fcb6"
+  },
+  {
     "title": "Jagoan Gizi",
     "category": "Game",
     "description": "Makan makanan sehat, hindari bakteri",
