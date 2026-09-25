@@ -9,6 +9,8 @@ const els = {
   cta: $('#cta'), duration: $('#duration'), level: $('#level'), tags: $('#tags'), imageUrl: $('#image-url'), imageFile: $('#image-file')
 };
 let items = [];
+let reorderBusy = false;
+let draggedId = null;
 
 const savedApi = localStorage.getItem('arena_api_url') || config.apiBaseUrl || '';
 els.apiUrl.value = savedApi;
@@ -53,20 +55,110 @@ async function loadItems(){
 
 function renderList(){
   if(!items.length){ els.list.innerHTML = '<div class="empty-list">Belum ada koleksi. Klik <strong>+ Tambah koleksi</strong>.</div>'; return; }
-  els.list.innerHTML = items.map(item => `
-    <article class="collection-row">
+  els.list.innerHTML = items.map((item, index) => `
+    <article class="collection-row" draggable="true" data-row-id="${escapeHtml(item.id)}">
+      <div class="position-box" title="Posisi koleksi"><span>#${index + 1}</span><button type="button" class="drag-handle" aria-label="Seret untuk mengubah posisi" title="Seret untuk mengubah posisi">⠿</button></div>
       ${item.image ? `<img class="thumb" src="${escapeHtml(imageForAdmin(item.image))}" alt="">` : '<div class="thumb thumb-placeholder">✦</div>'}
       <div class="row-main">
         <strong>${escapeHtml(item.title)}</strong>
         <div class="meta"><span class="chip">${escapeHtml(item.category)}</span><span>${escapeHtml(item.level||'')}</span><span>${escapeHtml(item.date||'')}</span></div>
       </div>
       <div class="row-actions">
+        <div class="order-actions" aria-label="Atur posisi ${escapeHtml(item.title)}">
+          <button class="button order-button" data-move="top" data-id="${escapeHtml(item.id)}" title="Paling atas" ${index===0?'disabled':''}>⇈</button>
+          <button class="button order-button" data-move="up" data-id="${escapeHtml(item.id)}" title="Naik satu" ${index===0?'disabled':''}>↑</button>
+          <button class="button order-button" data-move="down" data-id="${escapeHtml(item.id)}" title="Turun satu" ${index===items.length-1?'disabled':''}>↓</button>
+          <button class="button order-button" data-move="bottom" data-id="${escapeHtml(item.id)}" title="Paling bawah" ${index===items.length-1?'disabled':''}>⇊</button>
+        </div>
         <button class="button" data-edit="${escapeHtml(item.id)}">Edit</button>
         <button class="button danger-ghost" data-delete="${escapeHtml(item.id)}">Hapus</button>
       </div>
     </article>`).join('');
+
   els.list.querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click',()=>openEditor(b.dataset.edit)));
   els.list.querySelectorAll('[data-delete]').forEach(b=>b.addEventListener('click',()=>removeItem(b.dataset.delete)));
+  els.list.querySelectorAll('[data-move]').forEach(b=>b.addEventListener('click',()=>moveItem(b.dataset.id,b.dataset.move)));
+  setupDragAndDrop();
+}
+
+function reorderedCopy(id, direction){
+  const next = [...items];
+  const index = next.findIndex(x=>String(x.id)===String(id));
+  if(index < 0) return next;
+  let target = index;
+  if(direction==='top') target = 0;
+  if(direction==='up') target = Math.max(0,index-1);
+  if(direction==='down') target = Math.min(next.length-1,index+1);
+  if(direction==='bottom') target = next.length-1;
+  if(target===index) return next;
+  const [item] = next.splice(index,1);
+  next.splice(target,0,item);
+  return next;
+}
+
+async function persistOrder(nextItems, message='Urutan koleksi diperbarui.'){
+  if(reorderBusy) return;
+  const before = items;
+  reorderBusy = true;
+  items = nextItems;
+  renderList();
+  els.list.classList.add('is-saving-order');
+  try{
+    const orderedIds = items.map(x=>String(x.id));
+    const result = await api('/api/koleksi/reorder', {method:'POST', body:JSON.stringify({orderedIds})});
+    showMessage(result.message || message);
+    if(Array.isArray(result.items)) items = result.items;
+  }catch(err){
+    items = before;
+    showMessage(err.message,'error');
+  }finally{
+    reorderBusy = false;
+    renderList();
+    els.list.classList.remove('is-saving-order');
+  }
+}
+
+async function moveItem(id, direction){
+  const next = reorderedCopy(id,direction);
+  if(next.every((x,i)=>x===items[i])) return;
+  await persistOrder(next);
+}
+
+function setupDragAndDrop(){
+  els.list.querySelectorAll('.collection-row').forEach(row=>{
+    row.addEventListener('dragstart', event=>{
+      if(reorderBusy){ event.preventDefault(); return; }
+      draggedId = row.dataset.rowId;
+      row.classList.add('is-dragging');
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData('text/plain', draggedId);
+    });
+    row.addEventListener('dragend', ()=>{
+      draggedId = null;
+      els.list.querySelectorAll('.collection-row').forEach(r=>r.classList.remove('is-dragging','drag-over'));
+    });
+    row.addEventListener('dragover', event=>{
+      if(!draggedId || row.dataset.rowId===draggedId) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'move';
+      els.list.querySelectorAll('.collection-row').forEach(r=>r.classList.remove('drag-over'));
+      row.classList.add('drag-over');
+    });
+    row.addEventListener('drop', async event=>{
+      event.preventDefault();
+      const sourceId = draggedId || event.dataTransfer.getData('text/plain');
+      const targetId = row.dataset.rowId;
+      if(!sourceId || !targetId || sourceId===targetId) return;
+      const next = [...items];
+      const from = next.findIndex(x=>String(x.id)===String(sourceId));
+      const to = next.findIndex(x=>String(x.id)===String(targetId));
+      if(from<0 || to<0) return;
+      const [moved] = next.splice(from,1);
+      next.splice(to,0,moved);
+      draggedId = null;
+      await persistOrder(next);
+    });
+  });
 }
 
 function openEditor(id=''){
