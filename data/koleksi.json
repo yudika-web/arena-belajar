@@ -1,5 +1,19 @@
 [
   {
+    "title": "Jelajah Gaya",
+    "category": "MPI",
+    "description": "Belajar hukum Newton jadi asyik",
+    "image": "https://raw.githubusercontent.com/yudika-web/database/main/jelajah-gaya-kompres.webp",
+    "url": "https://yudika-web.github.io/mpi-jelajah-gaya/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-09-25",
+    "cta": "Mulai misi",
+    "newTab": true,
+    "id": "7454100f-2947-467f-90a3-3c34e840d5ae"
+  },
+  {
     "title": "Prompt Edu",
     "category": "MPI",
     "description": "Media pembelajaran interaktif dan sumber belajar berbasis prompt untuk kegiatan pembelajaran.",
