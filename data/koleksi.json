@@ -71,7 +71,7 @@
   },
   {
     "title": "Prompt Edu",
-    "category": "MPI",
+    "category": "Aplikasi",
     "description": "Media pembelajaran interaktif dan sumber belajar berbasis prompt untuk kegiatan pembelajaran.",
     "image": "https://raw.githubusercontent.com/yudika-web/prompt-edu/main/Prompt%20Edu.png",
     "url": "https://github.com/yudika-web/prompt-edu",
@@ -84,6 +84,7 @@
     ],
     "date": "2026-09-25",
     "cta": "Buka media",
-    "id": "prompt-edu"
+    "id": "prompt-edu",
+    "newTab": true
   }
 ]
