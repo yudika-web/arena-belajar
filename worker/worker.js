@@ -28,6 +28,20 @@ export default {
         await writeCollection(env, state.items, state.sha, `Tambah koleksi: ${item.title}`);
         return json({ ok: true, item, message: `“${item.title}” ditambahkan dan di-commit ke GitHub.` }, 201, cors);
       }
+      if (url.pathname === '/api/koleksi/reorder' && request.method === 'POST') {
+        const body = await readBody(request);
+        const state = await readCollection(env);
+        const orderedIds = Array.isArray(body.orderedIds) ? body.orderedIds.map(String) : [];
+        const currentIds = state.items.map(x => String(x.id));
+        const uniqueIds = new Set(orderedIds);
+        if (orderedIds.length !== currentIds.length || uniqueIds.size !== currentIds.length || currentIds.some(id => !uniqueIds.has(id))) {
+          throw httpError(409, 'Daftar koleksi berubah. Muat ulang Admin lalu atur posisi kembali.');
+        }
+        const byId = new Map(state.items.map(item => [String(item.id), item]));
+        const next = orderedIds.map(id => byId.get(id));
+        await writeCollection(env, next, state.sha, 'Atur ulang posisi koleksi');
+        return json({ ok: true, items: next, message: 'Urutan koleksi diperbarui dan di-commit ke GitHub.' }, 200, cors);
+      }
 
       const match = url.pathname.match(/^\/api\/koleksi\/([^/]+)$/);
       if (match && request.method === 'PUT') {
@@ -139,7 +153,7 @@ function normalizeItem(input, old={}){
   const url = String(input.url || old.url || '').trim();
   if(!title || !description || !url) throw httpError(400,'Judul, deskripsi, dan URL wajib diisi.');
   try { new URL(url); } catch { throw httpError(400,'URL tujuan tidak valid.'); }
-  const categories = new Set(['Worksheet','MPI','Game','Lab Maya']);
+  const categories = new Set(['Worksheet','MPI','Game','Lab Maya','Aplikasi','Modul Ajar']);
   const category = categories.has(input.category) ? input.category : (old.category || 'Worksheet');
   const image = String(input.image ?? old.image ?? '').trim();
   if(image){ try { new URL(image, 'https://example.com'); } catch { throw httpError(400,'URL gambar tidak valid.'); } }
