@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#17102f" />
+  <meta name="description" content="Arena IPA — belajar sains lewat permainan, eksperimen, worksheet, dan media pembelajaran interaktif." />
+  <title>Arena IPA — Yudi Kurniawan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#koleksi">Langsung ke koleksi</a>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Arena IPA">
+      <span class="brand-mark">AI</span>
+      <span>
+        <strong>Arena IPA</strong>
+        <small>LEARNING, LEVELED UP.</small>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Navigasi utama">
+      <a href="#koleksi" data-category-link="Worksheet">Worksheet</a>
+      <a href="#koleksi" data-category-link="MPI">MPI</a>
+      <a href="#koleksi" data-category-link="Game">Game</a>
+      <a href="#koleksi" data-category-link="Lab Maya">Lab Maya</a>
+    </nav>
+
+    <a class="admin-link" href="./admin/">Admin</a>
+  </header>
+
+  <main>
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="eyebrow">PLAYER ONE, SIAP BELAJAR?</p>
+        <h1>Belajar IPA.<br><span>Naik level bersama.</span></h1>
+        <p class="hero-text">Jelajahi sains lewat permainan, eksperimen, dan tantangan seru. Pilih petualanganmu dan temukan hal baru hari ini!</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#koleksi">Mulai Petualangan</a>
+          <a class="button button-ghost" href="#koleksi" data-category-link="Lab Maya">Jelajahi Lab</a>
+        </div>
+
+        <div class="teacher-card">
+          <div class="avatar">YK</div>
+          <div><strong>Yudi Kurniawan</strong><span>Guru IPA SMP Negeri 3 Segedong</span></div>
+        </div>
+      </div>
+
+      <div class="hero-art-wrap">
+        <div class="pixel-corners" aria-hidden="true"></div>
+        <img
+          class="hero-art"
+          src="https://arena-belajar.zona-sains.workers.dev/images/science-island.png"
+          alt="Pulau sains pixel dengan observatorium, kristal, dan penjelajah antariksa"
+        />
+        <p class="art-caption">DUNIA PENUH RASA INGIN TAHU</p>
+      </div>
+    </section>
+
+    <section class="feature-strip shell" aria-label="Jenis koleksi">
+      <article><span>01</span><strong>Worksheet</strong><small>Lembar kerja & tantangan</small></article>
+      <article><span>02</span><strong>MPI</strong><small>Media pembelajaran interaktif</small></article>
+      <article><span>03</span><strong>Game</strong><small>Main, pikir, taklukkan!</small></article>
+      <article><span>04</span><strong>Lab Maya</strong><small>Eksperimen tanpa batas</small></article>
+    </section>
+
+    <section class="collection-section" id="koleksi">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">PILIH MISIMU</p>
+            <h2>Koleksi petualangan.</h2>
+            <p>Satu klik untuk memulai penemuan baru.</p>
+          </div>
+          <div class="level-badge"><span>XP</span> +SCIENCE</div>
+        </div>
+
+        <div class="toolbar">
+          <div class="filters" id="filters" aria-label="Filter kategori">
+            <button class="filter is-active" data-filter="Semua" type="button">Semua koleksi</button>
+            <button class="filter" data-filter="Worksheet" type="button">Worksheet</button>
+            <button class="filter" data-filter="MPI" type="button">MPI</button>
+            <button class="filter" data-filter="Game" type="button">Game</button>
+            <button class="filter" data-filter="Lab Maya" type="button">Lab Maya</button>
+          </div>
+          <div class="tools">
+            <label class="search-box">
+              <span aria-hidden="true">⌕</span>
+              <input id="search" type="search" placeholder="Cari petualangan…" autocomplete="off" />
+            </label>
+            <select id="sort" aria-label="Urutkan koleksi">
+              <option value="featured">Pilihan utama</option>
+              <option value="az">Judul A–Z</option>
+              <option value="za">Judul Z–A</option>
+              <option value="newest">Terbaru</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="collection-grid" id="collection-grid" aria-live="polite">
+          <div class="loading-card">Memuat koleksi…</div>
+        </div>
+        <p class="empty-state" id="empty-state" hidden>Belum ada petualangan yang cocok dengan pencarianmu.</p>
+      </div>
+    </section>
+
+    <section class="motivation shell">
+      <div class="motivation-icon" aria-hidden="true">✦</div>
+      <div>
+        <h3>Rasa ingin tahu adalah kekuatan supermu.</h3>
+        <p>Terus mencoba, berani bertanya, dan nikmati proses belajarmu.</p>
+      </div>
+      <strong>KEEP EXPLORING!</strong>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <a class="brand brand-footer" href="./">
+        <span class="brand-mark">AI</span>
+        <span><strong>Arena IPA</strong><small>Dikembangkan oleh Yudi Kurniawan</small></span>
+      </a>
+      <p>Guru IPA SMP Negeri 3 Segedong</p>
+      <p>Belajar. Bermain. Bertumbuh.</p>
+    </div>
+  </footer>
+
+  <script src="./assets/app.js" defer></script>
+</body>
+</html>

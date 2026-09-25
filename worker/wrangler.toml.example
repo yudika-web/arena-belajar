@@ -1,0 +1,14 @@
+name = "arena-belajar-api"
+main = "worker.js"
+compatibility_date = "2026-09-25"
+
+[vars]
+GITHUB_OWNER = "yudika-web"
+GITHUB_REPO = "arena-belajar"
+GITHUB_BRANCH = "main"
+ALLOWED_ORIGIN = "https://yudika-web.github.io"
+
+# JANGAN taruh GITHUB_TOKEN atau ADMIN_KEY di file ini.
+# Tambahkan sebagai Secret di Cloudflare Dashboard atau via:
+# npx wrangler secret put GITHUB_TOKEN
+# npx wrangler secret put ADMIN_KEY

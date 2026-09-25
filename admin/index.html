@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#17102f" />
+  <title>Admin — Arena IPA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/admin.css" />
+</head>
+<body>
+  <header class="admin-header">
+    <a href="../" class="brand">← Arena IPA</a>
+    <div>
+      <strong>Dashboard Admin</strong>
+      <span>GitHub-backed collection manager</span>
+    </div>
+  </header>
+
+  <main class="admin-shell">
+    <section class="panel setup-panel" id="setup-panel">
+      <div>
+        <p class="eyebrow">KONFIGURASI</p>
+        <h1>Hubungkan Admin ke Worker</h1>
+        <p>URL Worker bukan rahasia. ADMIN_KEY hanya disimpan untuk sesi browser ini.</p>
+      </div>
+      <div class="setup-grid">
+        <label>URL Cloudflare Worker
+          <input id="api-url" type="url" placeholder="https://arena-belajar-api....workers.dev" autocomplete="url" />
+        </label>
+        <label>ADMIN_KEY
+          <input id="admin-key" type="password" placeholder="Masukkan kunci admin" autocomplete="current-password" />
+        </label>
+      </div>
+      <div class="actions-row">
+        <button class="button primary" id="connect-button" type="button">Hubungkan</button>
+        <span id="connection-status" class="status muted">Belum terhubung</span>
+      </div>
+    </section>
+
+    <section class="dashboard" id="dashboard" hidden>
+      <div class="dashboard-head">
+        <div>
+          <p class="eyebrow">KOLEKSI</p>
+          <h2>Kelola petualangan belajar</h2>
+        </div>
+        <div class="actions-row">
+          <button class="button" id="refresh-button" type="button">Muat ulang</button>
+          <button class="button primary" id="new-button" type="button">+ Tambah koleksi</button>
+          <button class="button danger-ghost" id="logout-button" type="button">Keluar</button>
+        </div>
+      </div>
+
+      <div id="global-message" class="message" hidden></div>
+
+      <section class="panel editor" id="editor" hidden>
+        <div class="editor-head">
+          <h3 id="editor-title">Tambah koleksi</h3>
+          <button type="button" class="icon-button" id="close-editor" aria-label="Tutup">×</button>
+        </div>
+        <form id="collection-form">
+          <input type="hidden" id="item-id" />
+          <div class="form-grid">
+            <label class="wide">Judul
+              <input id="title" required maxlength="120" placeholder="Contoh: Sistem Tata Surya" />
+            </label>
+            <label>Kategori
+              <select id="category" required>
+                <option>Worksheet</option>
+                <option>MPI</option>
+                <option>Game</option>
+                <option>Lab Maya</option>
+              </select>
+            </label>
+            <label>Tingkat
+              <input id="level" value="SMP" maxlength="50" />
+            </label>
+            <label class="wide">Deskripsi
+              <textarea id="description" required rows="4" maxlength="500" placeholder="Ringkasan singkat koleksi"></textarea>
+            </label>
+            <label class="wide">URL tujuan
+              <input id="url" type="url" required placeholder="https://..." />
+            </label>
+            <label>Teks tombol
+              <input id="cta" value="Mulai misi" maxlength="40" />
+            </label>
+            <label>Durasi / format
+              <input id="duration" value="Belajar mandiri" maxlength="60" />
+            </label>
+            <label class="wide">Tags <small>(pisahkan dengan koma)</small>
+              <input id="tags" placeholder="IPA, kelas 8, interaktif" />
+            </label>
+            <label class="wide">URL gambar <small>(opsional jika upload file)</small>
+              <input id="image-url" type="url" placeholder="https://.../gambar.png" />
+            </label>
+            <label class="wide file-label">Upload gambar ke GitHub <small>PNG/JPG/WebP, maks. 5 MB</small>
+              <input id="image-file" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+            </label>
+          </div>
+          <div class="actions-row form-actions">
+            <button class="button primary" id="save-button" type="submit">Simpan & commit</button>
+            <button class="button" id="cancel-button" type="button">Batal</button>
+            <span id="save-status" class="status muted"></span>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel list-panel">
+        <div id="collection-list" class="collection-list">
+          <p class="muted">Memuat data…</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="../assets/config.js"></script>
+  <script src="../assets/admin.js" defer></script>
+</body>
+</html>
