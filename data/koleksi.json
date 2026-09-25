@@ -1,5 +1,19 @@
 [
   {
+    "title": "Jagoan Gizi",
+    "category": "Game",
+    "description": "Makan makanan sehat, hindari bakteri",
+    "image": "https://raw.githubusercontent.com/yudika-web/database/main/START%20SCREEN.png",
+    "url": "https://yudika-web.github.io/game-jagoan-gizi/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-09-25",
+    "cta": "Mulai misi",
+    "newTab": true,
+    "id": "f9e42195-8c6d-4c9f-9823-85c3e4f6bcf3"
+  },
+  {
     "title": "Misi Petani Muda",
     "category": "Game",
     "description": "Belajar pertumbuhan dan perkembangan dengan cara yang seru",
