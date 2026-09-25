@@ -1,5 +1,19 @@
 [
   {
+    "title": "Misi Petani Muda",
+    "category": "Game",
+    "description": "Belajar pertumbuhan dan perkembangan dengan cara yang seru",
+    "image": "https://raw.githubusercontent.com/yudika-web/game-misi-petani-muda/refs/heads/main/misi%20petani%20muda.png",
+    "url": "https://yudika-web.github.io/game-misi-petani-muda/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-09-25",
+    "cta": "Mulai misi",
+    "newTab": true,
+    "id": "a481f7f5-45a8-426e-a3e6-174dc80899ba"
+  },
+  {
     "title": "Eksplorasi Tekanan Zat",
     "category": "MPI",
     "description": "Apa yang terjadi jika kita menyelam terlalu dalam?",
@@ -26,20 +40,6 @@
     "cta": "Mulai misi",
     "newTab": true,
     "id": "f9e42195-8c6d-4c9f-9823-85c3e4f6bcf3"
-  },
-  {
-    "title": "Misi Petani Muda",
-    "category": "Game",
-    "description": "Belajar pertumbuhan dan perkembangan dengan cara yang seru",
-    "image": "https://raw.githubusercontent.com/yudika-web/game-misi-petani-muda/refs/heads/main/misi%20petani%20muda.png",
-    "url": "https://yudika-web.github.io/game-misi-petani-muda/",
-    "level": "SMP",
-    "duration": "Belajar mandiri",
-    "tags": [],
-    "date": "2026-09-25",
-    "cta": "Mulai misi",
-    "newTab": true,
-    "id": "a481f7f5-45a8-426e-a3e6-174dc80899ba"
   },
   {
     "title": "Blood Journey",
