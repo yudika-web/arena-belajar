@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
-  <meta name="theme-color" content="#17102f" />
-  <title>Admin — Arena IPA</title>
+  <meta name="theme-color" content="#080e1c" />
+  <title>Admin — Arena Belajar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
@@ -13,19 +13,20 @@
 </head>
 <body>
   <header class="admin-header">
-    <a href="../" class="brand">← Arena IPA</a>
+    <a href="../" class="brand">← Arena Belajar</a>
     <div>
       <strong>Dashboard Admin</strong>
-      <span>GitHub-backed collection manager</span>
+      <span>Ruang kelola konten lintas mata pelajaran</span>
     </div>
   </header>
 
   <main class="admin-shell">
+    <div class="admin-intro"><p class="eyebrow">ARENA BELAJAR / STUDIO</p><p>Satu ruang untuk menghidupkan banyak pengetahuan.</p></div>
     <section class="panel setup-panel" id="setup-panel">
       <div>
         <p class="eyebrow">KONFIGURASI</p>
-        <h1>Hubungkan Admin ke Worker</h1>
-        <p>URL Worker bukan rahasia. ADMIN_KEY hanya disimpan untuk sesi browser ini.</p>
+        <h1>Selamat datang di ruang kendali.</h1>
+        <p>Hubungkan akun pengelola untuk mengatur koleksi, gambar, dan urutan tampil. Kunci admin hanya disimpan selama sesi browser ini.</p>
       </div>
       <div class="setup-grid">
         <label>URL Cloudflare Worker
@@ -37,7 +38,7 @@
       </div>
       <div class="actions-row">
         <button class="button primary" id="connect-button" type="button">Hubungkan</button>
-        <span id="connection-status" class="status muted">Belum terhubung</span>
+        <span id="connection-status" class="status muted" role="status">Belum terhubung</span>
       </div>
     </section>
 
@@ -45,7 +46,7 @@
       <div class="dashboard-head">
         <div>
           <p class="eyebrow">KOLEKSI</p>
-          <h2>Kelola petualangan belajar</h2>
+          <h2>Setiap koleksi, lebih bermakna.</h2>
         </div>
         <div class="actions-row">
           <button class="button" id="refresh-button" type="button">Muat ulang</button>
@@ -54,7 +55,8 @@
         </div>
       </div>
 
-      <div id="global-message" class="message" hidden></div>
+      <div class="admin-stats" aria-label="Ringkasan koleksi"><div><span>Total koleksi</span><strong id="admin-total">0</strong></div><div><span>Kategori terisi</span><strong id="admin-categories">0</strong></div><div><span>Dengan gambar</span><strong id="admin-images">0</strong></div><a href="../" target="_blank" rel="noopener">Lihat laman utama <span aria-hidden="true">↗</span></a></div>
+      <div id="global-message" class="message" role="status" hidden></div>
 
       <section class="panel editor" id="editor" hidden>
         <div class="editor-head">
@@ -65,7 +67,7 @@
           <input type="hidden" id="item-id" />
           <div class="form-grid">
             <label class="wide">Judul
-              <input id="title" required maxlength="120" placeholder="Contoh: Sistem Tata Surya" />
+              <input id="title" required maxlength="120" placeholder="Contoh: Jelajah Pecahan atau Sistem Tata Surya" />
             </label>
             <label>Kategori
               <select id="category" required>
@@ -87,31 +89,33 @@
               <input id="url" type="url" required placeholder="https://..." />
             </label>
             <label>Teks tombol
-              <input id="cta" value="Mulai misi" maxlength="40" />
+              <input id="cta" value="Mulai belajar" maxlength="40" />
             </label>
             <label>Durasi / format
               <input id="duration" value="Belajar mandiri" maxlength="60" />
             </label>
             <label class="wide">Tags <small>(pisahkan dengan koma)</small>
-              <input id="tags" placeholder="IPA, kelas 8, interaktif" />
+              <input id="tags" placeholder="Matematika, kelas 8, interaktif" />
             </label>
             <label class="wide">URL gambar <small>(opsional jika upload file)</small>
-              <input id="image-url" type="url" placeholder="https://.../gambar.png" />
+              <input id="image-url" type="text" inputmode="url" placeholder="https://.../gambar.png atau ./assets/images/gambar.png" />
             </label>
-            <label class="wide file-label">Upload gambar ke GitHub <small>PNG/JPG/WebP, maks. 5 MB</small>
+            <label class="wide file-label">Upload gambar ke GitHub <small>PNG/JPG/WebP/GIF, maks. 5 MB</small>
               <input id="image-file" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
             </label>
           </div>
+          <div class="preview-panel"><p class="eyebrow">PRATINJAU KARTU</p><div class="editor-preview"><div class="preview-image" id="preview-image"><span aria-hidden="true">✦</span></div><div><span class="chip" id="preview-category">Worksheet</span><h4 id="preview-title">Judul koleksimu</h4><p id="preview-description">Deskripsi koleksi akan muncul di sini.</p><span id="preview-cta">Mulai belajar ↗</span></div></div></div>
           <div class="actions-row form-actions">
             <button class="button primary" id="save-button" type="submit">Simpan & commit</button>
             <button class="button" id="cancel-button" type="button">Batal</button>
-            <span id="save-status" class="status muted"></span>
+            <span id="save-status" class="status muted" role="status"></span>
           </div>
         </form>
       </section>
 
       <section class="panel list-panel">
-        <p class="reorder-help"><strong>Atur posisi:</strong> gunakan ⇈ ↑ ↓ ⇊, atau seret kartu pada komputer. Urutan disimpan otomatis ke GitHub dan menjadi urutan default di landing page.</p>
+        <div class="list-toolbar"><h3>Perpustakaan konten</h3><label class="admin-search-label">Cari koleksi<input id="admin-search" type="search" placeholder="Judul, kategori, atau tag…" autocomplete="off"></label><p id="admin-result" role="status"></p></div>
+        <p class="reorder-help"><strong>Atur posisi:</strong> gunakan ⇈ ↑ ↓ ⇊, atau seret kartu pada komputer. Urutan disimpan otomatis ke GitHub dan menjadi urutan default di laman utama. Kosongkan pencarian untuk menyeret kartu.</p>
         <div id="collection-list" class="collection-list">
           <p class="muted">Memuat data…</p>
         </div>
