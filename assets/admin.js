@@ -12,9 +12,10 @@ let items = [];
 let reorderBusy = false;
 let draggedId = null;
 
-const savedApi = localStorage.getItem('arena_api_url') || config.apiBaseUrl || '';
+function stored(storage, key){ try{return window[storage].getItem(key) || '';}catch{return '';}}
+const savedApi = stored('localStorage','arena_api_url') || config.apiBaseUrl || '';
 els.apiUrl.value = savedApi;
-els.adminKey.value = sessionStorage.getItem('arena_admin_key') || '';
+els.adminKey.value = stored('sessionStorage','arena_admin_key');
 
 function apiBase(){ return els.apiUrl.value.trim().replace(/\/+$/, ''); }
 function adminKey(){ return els.adminKey.value.trim(); }
@@ -38,8 +39,7 @@ async function api(path, options={}){
 async function connect(){
   els.connect.disabled = true; els.connection.textContent = 'Memeriksa…';
   try{
-    localStorage.setItem('arena_api_url', apiBase());
-    sessionStorage.setItem('arena_admin_key', adminKey());
+    try{localStorage.setItem('arena_api_url', apiBase());sessionStorage.setItem('arena_admin_key', adminKey());}catch{/* Tetap bisa terhubung jika penyimpanan browser dibatasi. */}
     await loadItems();
     els.connection.textContent = 'Terhubung';
     els.setup.hidden = true; els.dashboard.hidden = false;
@@ -54,7 +54,10 @@ async function loadItems(){
 }
 
 function renderList(){
-  if(!items.length){ els.list.innerHTML = '<div class="empty-list">Belum ada koleksi. Klik <strong>+ Tambah koleksi</strong>.</div>'; return; }
+  $('#admin-total').textContent = items.length;
+  $('#admin-categories').textContent = new Set(items.map(item=>item.category)).size;
+  $('#admin-images').textContent = items.filter(item=>item.image).length;
+  if(!items.length){ els.list.innerHTML = '<div class="empty-list">Belum ada koleksi. Klik <strong>+ Tambah koleksi</strong>.</div>'; applyAdminSearch(); return; }
   els.list.innerHTML = items.map((item, index) => `
     <article class="collection-row" draggable="true" data-row-id="${escapeHtml(item.id)}">
       <div class="position-box" title="Posisi koleksi"><span>#${index + 1}</span><button type="button" class="drag-handle" aria-label="Seret untuk mengubah posisi" title="Seret untuk mengubah posisi">⠿</button></div>
@@ -79,6 +82,7 @@ function renderList(){
   els.list.querySelectorAll('[data-delete]').forEach(b=>b.addEventListener('click',()=>removeItem(b.dataset.delete)));
   els.list.querySelectorAll('[data-move]').forEach(b=>b.addEventListener('click',()=>moveItem(b.dataset.id,b.dataset.move)));
   setupDragAndDrop();
+  applyAdminSearch();
 }
 
 function reorderedCopy(id, direction){
@@ -170,18 +174,19 @@ function openEditor(id=''){
   els.category.value = item?.category || 'Worksheet';
   els.description.value = item?.description || '';
   els.url.value = item?.url || '';
-  els.cta.value = item?.cta || 'Mulai misi';
+  els.cta.value = item?.cta || 'Mulai belajar';
   els.duration.value = item?.duration || 'Belajar mandiri';
   els.level.value = item?.level || 'SMP';
   els.tags.value = (item?.tags || []).join(', ');
   els.imageUrl.value = item?.image || '';
   els.imageFile.value = '';
   els.saveStatus.textContent = item?.image ? 'Gambar lama dipertahankan jika tidak memilih file baru.' : '';
+  updatePreview();
   els.editor.hidden = false;
   els.title.focus();
   els.editor.scrollIntoView({behavior:'smooth',block:'start'});
 }
-function closeEditor(){ els.editor.hidden = true; els.form.reset(); }
+function closeEditor(){ els.editor.hidden = true; els.form.reset(); releasePreviewURL(); }
 
 function fileToDataUrl(file){
   return new Promise((resolve,reject)=>{
@@ -197,7 +202,7 @@ els.form.addEventListener('submit', async (event)=>{
     if(file && file.size > 5*1024*1024) throw new Error('Ukuran gambar maksimal 5 MB.');
     const item = {
       title: els.title.value.trim(), category: els.category.value, description: els.description.value.trim(), url: els.url.value.trim(),
-      cta: els.cta.value.trim() || 'Mulai misi', duration: els.duration.value.trim(), level: els.level.value.trim(),
+      cta: els.cta.value.trim() || 'Mulai belajar', duration: els.duration.value.trim(), level: els.level.value.trim(),
       tags: els.tags.value.split(',').map(x=>x.trim()).filter(Boolean), image: els.imageUrl.value.trim(), date: new Date().toISOString().slice(0,10)
     };
     const payload = {item};
@@ -225,6 +230,45 @@ async function removeItem(id){
 els.connect.addEventListener('click',connect);
 els.refresh.addEventListener('click',()=>loadItems().then(()=>showMessage('Data terbaru sudah dimuat.')).catch(e=>showMessage(e.message,'error')));
 els.add.addEventListener('click',()=>openEditor());
-els.logout.addEventListener('click',()=>{sessionStorage.removeItem('arena_admin_key');els.adminKey.value='';els.dashboard.hidden=true;els.setup.hidden=false;els.connection.textContent='Sesi ditutup';});
+els.logout.addEventListener('click',()=>{try{sessionStorage.removeItem('arena_admin_key');}catch{}els.adminKey.value='';els.dashboard.hidden=true;els.setup.hidden=false;els.connection.textContent='Sesi ditutup';});
 els.closeEditor.addEventListener('click',closeEditor); els.cancel.addEventListener('click',closeEditor);
+
+
+// Interaksi tampilan; kontrak API dan format data tetap sama.
+function applyAdminSearch(){
+  const query = $('#admin-search').value.trim().toLocaleLowerCase('id');
+  let visible = 0;
+  els.list.querySelectorAll('.collection-row').forEach((row,index)=>{
+    const item = items[index];
+    const tags = Array.isArray(item.tags) ? item.tags.join(' ') : '';
+    const matches = `${item.title} ${item.category} ${tags}`.toLocaleLowerCase('id').includes(query);
+    row.hidden = !matches;
+    row.draggable = !query;
+    if(matches) visible++;
+  });
+  $('#admin-result').textContent = `${visible} dari ${items.length} koleksi ditampilkan`;
+}
+$('#admin-search').addEventListener('input',applyAdminSearch);
+let previewObjectURL = '';
+function releasePreviewURL(){if(previewObjectURL){URL.revokeObjectURL(previewObjectURL);previewObjectURL='';}}
+function updatePreview(){
+  $('#preview-title').textContent = els.title.value || 'Judul koleksimu';
+  $('#preview-category').textContent = els.category.value;
+  $('#preview-description').textContent = els.description.value || 'Deskripsi koleksi akan muncul di sini.';
+  $('#preview-cta').textContent = (els.cta.value || 'Mulai belajar') + ' ↗';
+  const box = $('#preview-image');
+  box.replaceChildren();
+  const placeholder=document.createElement('span');placeholder.textContent='✦';placeholder.setAttribute('aria-hidden','true');box.append(placeholder);
+  releasePreviewURL();
+  let src = '';
+  const file=els.imageFile.files[0];
+  if(file && ['image/png','image/jpeg','image/webp','image/gif'].includes(file.type) && file.size <= 5*1024*1024){previewObjectURL=URL.createObjectURL(file);src=previewObjectURL;}
+  else if(els.imageUrl.value.trim()){
+    try{const url=new URL(imageForAdmin(els.imageUrl.value.trim()),document.baseURI);if(['http:','https:'].includes(url.protocol))src=url.href;}catch{}
+  }
+  if(src){const image=document.createElement('img');image.src=src;image.alt='Pratinjau gambar koleksi';image.addEventListener('error',()=>image.remove(),{once:true});box.append(image);}
+}
+els.form.addEventListener('input',updatePreview);
+els.imageFile.addEventListener('change',updatePreview);
+
 if(els.apiUrl.value && els.adminKey.value) connect();
