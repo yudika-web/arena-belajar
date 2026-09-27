@@ -1,5 +1,19 @@
 [
   {
+    "title": "Imuno Wars",
+    "category": "Game",
+    "description": "Pertarungan imun melawan bakteri, virus dan patogen",
+    "image": "https://raw.githubusercontent.com/yudika-web/imuno-wars/main/start_screen.png",
+    "url": "https://yudika-web.github.io/imuno-wars/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-09-27",
+    "cta": "Mulai belajar",
+    "newTab": true,
+    "id": "93078d28-6b70-42dd-a7f6-190e5c37d949"
+  },
+  {
     "title": "Jelajah Gaya",
     "category": "MPI",
     "description": "Belajar hukum Newton jadi asyik",
