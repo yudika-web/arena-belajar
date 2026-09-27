@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/style.css">
+  <link rel="stylesheet" href="./assets/audio/music-player.css">
 </head>
 <body>
   <a class="skip-link" href="#koleksi">Langsung ke koleksi</a>
@@ -72,7 +73,20 @@
     <section class="about-section shell" id="tentang"><div class="about-mark" aria-hidden="true"><img src="./assets/icons/ui/sparkle.webp" alt="" width="96" height="96"></div><div><p class="eyebrow">BELAJAR. BERMAIN. BERTUMBUH.</p><h2>Ide besar dimulai dari<br>rasa ingin tahu yang kecil.</h2><p>Arena Belajar adalah ruang eksplorasi lintas mata pelajaran. Untuk siswa yang ingin mencoba dan guru yang ingin menginspirasi.</p><div class="teacher-card"><span class="avatar">YK</span><div><strong>Yudi Kurniawan</strong><span>Pengembang Arena Belajar · SMP Negeri 3 Segedong</span></div></div></div><a class="button button-ghost" href="#koleksi">Mulai penemuanmu <span class="button-arrow" aria-hidden="true"></span></a></section>
   </main>
   <footer class="site-footer shell"><a class="brand" href="./"><span class="brand-mark" aria-hidden="true"><img src="./assets/icons/ui/brand-planet.webp" alt="" width="96" height="96"></span><strong>Arena Belajar</strong></a><p>Ruang belajar. Banyak kemungkinan.</p><a class="back-to-top" href="#hero-title">Kembali ke atas <img src="./assets/icons/ui/arrow-up.webp" alt="" width="40" height="40"></a></footer>
+  <audio id="arena-bgm" src="./assets/audio/musik-latar-arena-belajar.mp3" autoplay loop preload="auto" playsinline></audio>
+  <div class="music-controller is-paused" id="music-controller" role="group" aria-label="Kontrol musik latar">
+    <button class="music-mute" id="music-mute" type="button" aria-pressed="false" aria-label="Matikan musik latar">
+      <span class="music-disc" aria-hidden="true"><span class="music-note">♫</span></span>
+      <span class="music-status"><strong>Musik</strong><small id="music-state">Menyiapkan…</small></span>
+    </button>
+    <label class="music-volume-wrap" for="music-volume">
+      <span class="sr-only">Atur volume musik latar</span>
+      <input class="music-volume" id="music-volume" type="range" min="0" max="100" step="1" value="30" aria-label="Volume musik latar">
+      <output class="music-volume-value" id="music-volume-value" for="music-volume">30%</output>
+    </label>
+  </div>
   <div class="toast" id="toast" role="status" hidden></div>
   <script src="./assets/app.js" defer></script>
+  <script src="./assets/audio/music-player.js" defer></script>
 </body>
 </html>
