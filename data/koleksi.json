@@ -28,20 +28,6 @@
     "id": "7454100f-2947-467f-90a3-3c34e840d5ae"
   },
   {
-    "title": "Nefi Lab Ginjal",
-    "category": "Worksheet",
-    "description": "Belajar seru tentang ginjal dan bagaimana urin terbentuk",
-    "image": "https://raw.githubusercontent.com/yudika-web/mpi-ahli-ginjal/main/Lab%20Ginjal%20Nefi.png",
-    "url": "https://yudika-web.github.io/mpi-ahli-ginjal/",
-    "level": "SMP",
-    "duration": "Belajar mandiri",
-    "tags": [],
-    "date": "2026-10-04",
-    "cta": "Mulai belajar",
-    "newTab": true,
-    "id": "ca145c39-fa31-433c-ba83-f1b89b8171b5"
-  },
-  {
     "title": "Misi Petani Muda",
     "category": "Game",
     "description": "Belajar pertumbuhan dan perkembangan dengan cara yang seru",
@@ -54,6 +40,20 @@
     "cta": "Mulai misi",
     "newTab": true,
     "id": "a481f7f5-45a8-426e-a3e6-174dc80899ba"
+  },
+  {
+    "title": "Nefi Lab Ginjal",
+    "category": "Worksheet",
+    "description": "Belajar seru tentang ginjal dan bagaimana urin terbentuk",
+    "image": "https://raw.githubusercontent.com/yudika-web/mpi-ahli-ginjal/main/Lab%20Ginjal%20Nefi.png",
+    "url": "https://yudika-web.github.io/mpi-ahli-ginjal/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-10-04",
+    "cta": "Mulai belajar",
+    "newTab": true,
+    "id": "ca145c39-fa31-433c-ba83-f1b89b8171b5"
   },
   {
     "title": "Eksplorasi Tekanan Zat",
