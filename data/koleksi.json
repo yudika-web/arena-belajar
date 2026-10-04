@@ -1,5 +1,23 @@
 [
   {
+    "title": "Prompt Edu",
+    "category": "Aplikasi",
+    "description": "Media pembelajaran interaktif dan sumber belajar berbasis prompt untuk kegiatan pembelajaran.",
+    "image": "https://raw.githubusercontent.com/yudika-web/prompt-edu/main/Prompt%20Edu.png",
+    "url": "https://yudika-web.github.io/prompt-edu/",
+    "level": "SMP",
+    "duration": "Interaktif",
+    "tags": [
+      "IPA",
+      "media",
+      "prompt"
+    ],
+    "date": "2026-09-28",
+    "cta": "Buka media",
+    "id": "prompt-edu",
+    "newTab": true
+  },
+  {
     "title": "Imuno Wars",
     "category": "Game",
     "description": "Pertarungan imun melawan bakteri, virus dan patogen",
@@ -96,23 +114,5 @@
     "cta": "Mulai misi",
     "newTab": true,
     "id": "0230929c-e8ef-42e5-afe3-5f69efbb08b3"
-  },
-  {
-    "title": "Prompt Edu",
-    "category": "Aplikasi",
-    "description": "Media pembelajaran interaktif dan sumber belajar berbasis prompt untuk kegiatan pembelajaran.",
-    "image": "https://raw.githubusercontent.com/yudika-web/prompt-edu/main/Prompt%20Edu.png",
-    "url": "https://yudika-web.github.io/prompt-edu/",
-    "level": "SMP",
-    "duration": "Interaktif",
-    "tags": [
-      "IPA",
-      "media",
-      "prompt"
-    ],
-    "date": "2026-09-28",
-    "cta": "Buka media",
-    "id": "prompt-edu",
-    "newTab": true
   }
 ]
