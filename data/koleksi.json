@@ -14,20 +14,6 @@
     "id": "93078d28-6b70-42dd-a7f6-190e5c37d949"
   },
   {
-    "title": "Nefi Lab Ginjal",
-    "category": "Worksheet",
-    "description": "Belajar seru tentang ginjal dan bagaimana urin terbentuk",
-    "image": "https://raw.githubusercontent.com/yudika-web/mpi-ahli-ginjal/main/Lab%20Ginjal%20Nefi.png",
-    "url": "https://yudika-web.github.io/mpi-ahli-ginjal/",
-    "level": "SMP",
-    "duration": "Belajar mandiri",
-    "tags": [],
-    "date": "2026-10-04",
-    "cta": "Mulai belajar",
-    "newTab": true,
-    "id": "ca145c39-fa31-433c-ba83-f1b89b8171b5"
-  },
-  {
     "title": "Jelajah Gaya",
     "category": "MPI",
     "description": "Belajar hukum Newton jadi asyik",
@@ -40,6 +26,20 @@
     "cta": "Mulai misi",
     "newTab": true,
     "id": "7454100f-2947-467f-90a3-3c34e840d5ae"
+  },
+  {
+    "title": "Nefi Lab Ginjal",
+    "category": "Worksheet",
+    "description": "Belajar seru tentang ginjal dan bagaimana urin terbentuk",
+    "image": "https://raw.githubusercontent.com/yudika-web/mpi-ahli-ginjal/main/Lab%20Ginjal%20Nefi.png",
+    "url": "https://yudika-web.github.io/mpi-ahli-ginjal/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-10-04",
+    "cta": "Mulai belajar",
+    "newTab": true,
+    "id": "ca145c39-fa31-433c-ba83-f1b89b8171b5"
   },
   {
     "title": "Misi Petani Muda",
