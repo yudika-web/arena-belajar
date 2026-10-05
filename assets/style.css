@@ -527,6 +527,87 @@ select option{background:#142B40;color:var(--ink)}
     --space-overlay-effect:blur(12px) saturate(150%);
   }
 }
+/* Pengaturan kaca V6
+   Dua pengaturan pengguna diatur assets/glass-settings.js dan tersimpan di perangkat:
+   --glass-clear : 0 = panel paling pekat ... 1 = paling bening
+   --bg-bright   : 0 = latar paling gelap ... 1 = paling terang
+   Rentang alpha panel ikut naik saat latar makin terang (--a-lo, --a-hi), sehingga
+   teks tetap terbaca dan slider transparansi tetap berfungsi di seluruh rentangnya.
+   Nilai bawaan harus sama dengan DEFAULTS di glass-settings.js. */
+:root{
+  --glass-clear:.70;
+  --bg-bright:.75;
+  --glass-bonus:0;
+  --a-lo:calc(.08 + var(--bg-bright)*.42);
+  --a-hi:calc(.52 + var(--bg-bright)*.18);
+  --a-main:calc(var(--a-hi) - (var(--a-hi) - var(--a-lo))*var(--glass-clear));
+  --space-main-tint:rgba(10,23,44,min(.96,calc(var(--a-main) + var(--glass-bonus))));
+  --space-item-tint:rgba(10,23,44,min(.96,calc(var(--a-main) - .02 + var(--glass-bonus))));
+  --space-control-tint:rgba(10,23,44,min(.96,calc(var(--a-main) + .14 + var(--glass-bonus))));
+  --space-badge-tint:rgba(63,42,10,min(.96,calc(var(--a-main) + .14 + var(--glass-bonus))));
+  --space-overlay-tint:rgba(10,23,44,min(.96,calc(.62 + (1 - var(--glass-clear))*.22 + var(--glass-bonus)*.4)));
+  --space-night-veil:rgba(2,6,18,calc(.74*(1 - var(--bg-bright))));
+  --space-panel-shadow:rgba(2,6,18,calc(.14 + var(--bg-bright)*.30));
+}
+/* Latar lebih terang: kabut gelap pada nebula ikut mengecil saat kecerahan naik. */
+.space-bg{
+  background-image:
+    linear-gradient(180deg,rgba(7,21,43,calc(.13*(1 - var(--bg-bright)))),rgba(11,23,48,calc(.25*(1 - var(--bg-bright))))),
+    url('./space-art/bg-nebula.webp'),
+    linear-gradient(155deg,#0B1730,#142B40 55%,#2A1B5C);
+}
+@media(max-width:600px){
+  .space-bg{
+    background-image:
+      linear-gradient(180deg,rgba(7,21,43,calc(.13*(1 - var(--bg-bright)))),rgba(11,23,48,calc(.25*(1 - var(--bg-bright))))),
+      url('./space-art/bg-nebula-mobile.webp'),
+      linear-gradient(155deg,#0B1730,#142B40 55%,#2A1B5C);
+  }
+}
+/* Bayangan halus di belakang teks membantu keterbacaan di atas latar terang. */
+.site-header,.hero-copy,.music-player,.now-playing,.liner-notes,.site-footer,
+.toolbar,.rack-section .section-heading,.tracklist-section .section-heading>div,.tracklist-items>li{
+  text-shadow:0 1px 3px var(--space-panel-shadow);
+}
+.button.primary,.new-badge,.cover-title,.cover-category,.sleeve-label{text-shadow:none}
+
+/* Tombol dan panel pengaturan kaca (dibuat oleh glass-settings.js). */
+.glass-settings{
+  position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));
+  z-index:45;font-family:'Nunito',sans-serif;color:var(--ink);text-shadow:none;
+}
+.glass-toggle{
+  display:grid;place-items:center;width:46px;height:46px;padding:0;border:0;border-radius:50%;
+  background:var(--space-overlay-fill);color:var(--ink);
+  box-shadow:var(--space-glass-shadow);
+  -webkit-backdrop-filter:var(--space-overlay-effect);backdrop-filter:var(--space-overlay-effect);
+}
+.glass-toggle:hover{color:var(--focus)}
+.glass-panel{
+  position:absolute;right:0;bottom:58px;width:min(320px,calc(100vw - 28px));padding:18px 18px 16px;
+  border-radius:20px;background:var(--space-overlay-fill);color:var(--ink);
+  box-shadow:var(--space-glass-shadow);
+  -webkit-backdrop-filter:var(--space-overlay-effect);backdrop-filter:var(--space-overlay-effect);
+}
+.glass-title{margin:0 0 12px;font-family:'Baloo 2',sans-serif;font-size:20px;font-weight:700;line-height:1.2}
+.glass-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px;font-weight:800}
+.glass-row output{color:var(--focus);font-variant-numeric:tabular-nums}
+.glass-panel input[type=range]{display:block;width:100%;height:32px;margin:4px 0 0;accent-color:var(--focus);background:transparent}
+.glass-hint{margin:0 0 12px;font-size:12px;line-height:1.5;color:var(--muted)}
+.glass-auto,.glass-note{margin:0 0 12px;font-size:12px;line-height:1.5;color:var(--muted)}
+.glass-note{color:var(--space-label-ink);font-weight:700}
+.glass-actions{display:flex;gap:10px}
+.glass-actions button{
+  flex:1;min-height:44px;padding:8px 12px;border:0;border-radius:14px;font-size:14px;font-weight:800;
+  color:var(--ink);background:var(--space-control-fill);box-shadow:var(--space-control-shadow);
+}
+.glass-actions .glass-close{background:var(--focus);color:#193B57;box-shadow:none}
+@media(forced-colors:active){
+  .glass-toggle,.glass-panel,.glass-actions button{
+    background:Canvas!important;color:CanvasText!important;border:1px solid CanvasText!important;
+    box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
+}
 /* Cadangan tanpa dukungan kaca: permukaan 84%, tanpa blur. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   :root{
@@ -539,17 +620,10 @@ select option{background:#142B40;color:var(--ink)}
     --space-cover-effect:none;--space-overlay-effect:none;
   }
 }
-/* Transparansi dikurangi (V5.1): kaca tetap ada, tetapi lebih pekat dan tetap
-   berblur agar teks terbaca; latar masih tampak samar di balik panel.
-   Menaikkan alpha tint hanya menggelapkan panel, jadi kontras teks terang naik. */
+/* Transparansi dikurangi (V5.1/V6): kaca tetap ada dan berblur, hanya lebih pekat.
+   Tambahan alpha ini ikut aturan slider di blok "Pengaturan kaca V6". */
 @media(prefers-reduced-transparency:reduce){
-  :root{
-    --space-main-tint:rgba(10,23,44,.52);--space-main-wash:rgba(255,255,255,.04);
-    --space-item-tint:rgba(10,23,44,.48);--space-item-wash:rgba(255,255,255,.02);
-    --space-control-tint:rgba(10,23,44,.58);--space-control-wash:rgba(255,255,255,.04);
-    --space-badge-tint:rgba(63,42,10,.58);
-    --space-overlay-tint:rgba(10,23,44,.84);--space-cover-tint:rgba(10,23,44,.86);
-  }
+  :root{--glass-bonus:.22}
 }
 /* Kontras tinggi: permukaan solid dan tepi tegas (ditaruh setelah blok di atas agar menang). */
 @media(prefers-contrast:more){
