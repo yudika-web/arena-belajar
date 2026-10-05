@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#F3FAFF">
-  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#0B1730">
+  <meta name="color-scheme" content="dark">
   <meta name="description" content="Arena Belajar: rak koleksi worksheet, media interaktif, game edukasi, lab maya, aplikasi, dan modul ajar untuk siswa dan guru.">
   <title>Arena Belajar — Belajar seru, petualangan baru</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,9 +13,21 @@
   <link rel="stylesheet" href="./assets/style.css">
   <script src="./assets/app.js" defer></script>
   <script src="./assets/music.js" defer></script>
+  <script src="./assets/space.js" defer></script>
   <noscript><style>.loading-state,.toolbar,.genre-bar,.results-label,.hero-stats,#tracklist-placeholder{display:none}.hero-actions #surprise-button{display:none}</style></noscript>
 </head>
 <body>
+  <div class="space-bg" aria-hidden="true">
+    <div class="space-layer space-stars space-far"></div>
+    <div class="space-layer space-stars space-mid"></div>
+    <div class="space-layer space-stars space-near"></div>
+    <div class="space-planet-layer space-mustard"><div class="space-float"><img class="space-orb" src="./assets/space-art/planet-mustard.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="space-planet-layer space-pink"><div class="space-float"><img class="space-orb" src="./assets/space-art/planet-pink.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="space-planet-layer space-teal"><div class="space-float"><img class="space-orb" src="./assets/space-art/planet-teal.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"><div class="space-moon-orbit"><span class="space-moon"></span></div></div></div>
+    <div class="space-planet-layer space-purple"><div class="space-float"><img class="space-orb" src="./assets/space-art/planet-purple.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="space-planet-layer space-moon-body"><div class="space-float"><img class="space-orb" src="./assets/space-art/moon.webp" width="480" height="480" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="space-planet-layer space-satellite"><div class="space-float"><img class="space-orb" src="./assets/space-art/satellite.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+  </div>
   <!-- Satu set ikon garis; semua ikon dekoratif disembunyikan dari pembaca layar. -->
   <svg class="svg-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
@@ -51,7 +63,7 @@
   </header>
   <main>
     <section class="hero shell" aria-labelledby="hero-title">
-      <div class="hero-copy">
+      <div class="hero-copy space-readable">
         <p class="eyebrow">HALO, PENJELAJAH KECIL!</p>
         <h1 id="hero-title">Belajar seru.<br>Petualangan <span>baru!</span></h1>
         <p class="hero-text">Ayo masuk ke Arena Belajar! Pilih petualanganmu, mainkan rasa ingin tahu, dan temukan hal baru bersama teman astronot kita.</p>
@@ -59,24 +71,9 @@
         <dl class="hero-stats"><div><dt>Koleksi belajar</dt><dd id="total-collections">—</dd></div><div><dt>Wahana terisi</dt><dd id="total-genres">—</dd></div></dl>
       </div>
       <div class="hero-art playground-scene">
-        <svg class="playground-backdrop" viewBox="0 0 600 570" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <ellipse cx="315" cy="292" rx="250" ry="235" fill="#D9F0FF"/>
-          <path d="M70 431Q149 340 290 436Q438 331 556 424L543 514Q281 568 77 503Z" fill="#BDE7CC"/>
-          <path d="M115 481Q233 405 333 469Q425 532 509 461" fill="none" stroke="#FFE1A0" stroke-width="27" stroke-linecap="round"/>
-          <path d="M430 443V286h105v151" fill="#FFB8AC" stroke="#213E63" stroke-width="5" stroke-linejoin="round"/>
-          <path d="m420 286 62-55 66 55Z" fill="#FFCF66" stroke="#213E63" stroke-width="5" stroke-linejoin="round"/>
-          <path d="M458 443v-67a24 24 0 0 1 48 0v67" fill="#FFF5D4" stroke="#213E63" stroke-width="4"/>
-          <path d="M136 438V333h69v105M137 333l34-38 34 38" fill="#A9D6FA" stroke="#213E63" stroke-width="4" stroke-linejoin="round"/>
-          <path d="M203 404h80v15h-80M203 377h80v15h-80" fill="#FFDC88" stroke="#213E63" stroke-width="3"/>
-          <circle cx="483" cy="315" r="14" fill="#FFF7E9" stroke="#213E63" stroke-width="4"/>
-          <circle cx="97" cy="218" r="19" fill="#FFE27C"/><ellipse cx="97" cy="218" rx="32" ry="8" fill="none" stroke="#DE9E33" stroke-width="4" transform="rotate(-23 97 218)"/>
-          <path d="m420 89 5 13 14 1-11 9 4 14-12-8-12 8 4-14-11-9 14-1Z" fill="#FFC956" stroke="#213E63" stroke-width="2"/>
-          <path d="m159 109 4 10 11 1-9 7 3 11-9-6-9 6 3-11-9-7 11-1Z" fill="#FFB8AC"/>
-          <path d="M318 111v19m-9-9h19M549 171v14m-7-7h14" fill="none" stroke="#6695B9" stroke-width="4" stroke-linecap="round"/>
-          <path d="M66 146c0-11 12-18 21-10 8-13 26-10 28 4 15-2 20 19 4 21H78c-8 0-13-7-12-15Z" fill="#FFFFFF"/>
-          <path d="M494 112c0-9 11-15 18-8 7-11 22-8 23 4 14-2 17 16 3 18h-33c-7 0-12-6-11-14Z" fill="#FFFFFF"/>
-          <ellipse cx="270" cy="490" rx="142" ry="15" fill="#213E63" opacity=".1"/>
-        </svg>
+        <img class="space-hero-landscape" src="./assets/space-art/lunar-playground.webp" width="1200" height="800" alt="" aria-hidden="true" decoding="async" draggable="false">
+        <img class="space-hero-planet" src="./assets/space-art/planet-mustard.webp" width="640" height="640" alt="" aria-hidden="true" decoding="async" fetchpriority="low" draggable="false">
+        <img class="space-hero-satellite" src="./assets/space-art/satellite.webp" width="640" height="640" alt="" aria-hidden="true" decoding="async" fetchpriority="low" draggable="false">
         <span class="scene-bubble bubble-one">Siap menjelajah?</span>
         <div id="hero-fan" class="mascot-team">
           <img class="mascot mascot-child" src="./assets/mascots/astronot-cilik.webp" width="900" height="1125" alt="Maskot anak astronot tersenyum sambil membawa bintang kuning" fetchpriority="high" decoding="async">
@@ -86,18 +83,18 @@
         <div class="scene-caption"><svg class="icon" aria-hidden="true"><use href="#icon-play"/></svg>Petualangan dimulai dari rasa ingin tahu.</div>
       </div>
     </section>
-    <!-- Audio terpisah; tidak diunduh atau diputar sebelum pengguna menekan Putar. -->
+    <!-- Audio terpisah: coba autoplay, lalu tunggu interaksi bila browser membatasi. -->
     <section class="music-player shell" id="music-player" aria-labelledby="music-title" hidden>
-      <div class="music-heading"><span class="music-badge" aria-hidden="true"><svg class="icon"><use href="#icon-music"/></svg></span><div><h2 id="music-title">Musik petualanganmu</h2><p id="music-status" role="status" aria-live="polite">Musik belum diputar. Tekan Putar untuk mulai.</p></div></div>
+      <div class="music-heading"><span class="music-badge" aria-hidden="true"><svg class="icon"><use href="#icon-music"/></svg></span><div><h2 id="music-title">Musik petualanganmu</h2><p id="music-status" role="status" aria-live="polite">Menyiapkan musik petualangan…</p></div></div>
       <div class="music-controls">
         <button class="button primary music-toggle" id="music-toggle" type="button" aria-label="Putar musik latar"><svg class="icon" aria-hidden="true"><use id="music-toggle-icon" href="#icon-play"/></svg><span id="music-toggle-label">Putar</span></button>
         <div class="music-track-field"><label for="music-track">Pilih musik</label><select id="music-track"><option value="0">Final Chord</option><option value="1">Final Boss</option><option value="2">Final Stand</option></select></div>
         <div class="music-volume-field"><label for="music-volume">Volume <output id="music-volume-value" for="music-volume">20%</output></label><div class="music-volume-row"><button class="music-mute" id="music-mute" type="button" aria-label="Senyapkan musik" aria-pressed="false"><svg class="icon" aria-hidden="true"><use id="music-mute-icon" href="#icon-volume"/></svg></button><input id="music-volume" type="range" min="0" max="100" step="5" value="20" aria-valuetext="20 persen"></div></div>
       </div>
-      <audio id="background-music" preload="none" aria-hidden="true"></audio>
-      <p class="music-hint">Opsional. Lagu berganti otomatis setelah selesai; kamu bisa menjeda kapan saja.</p>
+      <audio id="background-music" autoplay preload="auto" aria-hidden="true"></audio>
+      <p class="music-hint">Musik mulai otomatis bila diizinkan browser. Jika dibatasi, klik atau ketuk laman untuk mulai. Lagu berganti setelah selesai; kamu bisa menjeda kapan saja.</p>
     </section>
-    <noscript><div class="shell music-noscript"><p>Unduh musik petualangan: <a href="./assets/audio/final-chord.mp3">Final Chord</a> · <a href="./assets/audio/final-boss.mp3">Final Boss</a> · <a href="./assets/audio/final-stand.mp3">Final Stand</a>.</p></div></noscript>
+    <noscript><div class="shell music-noscript space-readable"><p>Unduh musik petualangan: <a href="./assets/audio/final-chord.mp3">Final Chord</a> · <a href="./assets/audio/final-boss.mp3">Final Boss</a> · <a href="./assets/audio/final-stand.mp3">Final Stand</a>.</p></div></noscript>
     <section class="rack-section" id="koleksi" aria-labelledby="rack-title">
       <div class="shell">
         <div class="section-heading"><div><p class="eyebrow">PILIH WAHANA BELAJARMU</p><h2 id="rack-title">Mau bermain di mana hari ini?</h2><p>Geser kartu, temukan yang menarik, lalu mulai petualanganmu.</p></div><span class="stamp" aria-hidden="true">AYO<br>COBA!</span></div>
@@ -123,10 +120,10 @@
         <noscript><div class="empty-state"><h3>Koleksi interaktif membutuhkan JavaScript.</h3><p>Aktifkan JavaScript untuk menggunakan arena, pencarian, dan Daftar Petualangan. Kamu tetap dapat membuka <a href="./data/koleksi.json">daftar koleksi dalam format JSON</a> atau membaca Tentang Arena di bawah.</p></div></noscript>
       </div>
     </section>
-    <section class="tracklist-section shell" id="tracklist" aria-labelledby="tracklist-title" data-reveal><div class="section-heading"><div><p class="eyebrow">LANJUTKAN RASA INGIN TAHUMU</p><h2 id="tracklist-title">Daftar Petualangan.</h2><p>Daftar lengkap sesuai pencarian dan wahana pilihanmu.</p></div><span id="tracklist-count" class="label"></span></div><ol id="tracklist-items" class="tracklist-items"></ol><p id="tracklist-placeholder" class="tracklist-placeholder">Daftar akan tersedia setelah koleksi berhasil dimuat.</p></section>
+    <section class="tracklist-section shell space-readable" id="tracklist" aria-labelledby="tracklist-title" data-reveal><div class="section-heading"><div><p class="eyebrow">LANJUTKAN RASA INGIN TAHUMU</p><h2 id="tracklist-title">Daftar Petualangan.</h2><p>Daftar lengkap sesuai pencarian dan wahana pilihanmu.</p></div><span id="tracklist-count" class="label"></span></div><ol id="tracklist-items" class="tracklist-items"></ol><p id="tracklist-placeholder" class="tracklist-placeholder">Daftar akan tersedia setelah koleksi berhasil dimuat.</p></section>
     <section class="liner-notes shell" id="tentang" aria-labelledby="notes-title" data-reveal><div class="notes-art"><img src="./assets/mascots/kucing-astronot.webp" width="820" height="1025" alt="Kucing astronot, teman bermain di Arena Belajar" loading="lazy" decoding="async"><span>BERANI MENCOBA.<br>SENANG BELAJAR.</span></div><div class="notes-copy"><p class="eyebrow">SATU ARENA, BANYAK PENEMUAN</p><h2 id="notes-title">Tentang Arena.</h2><p>Setiap pertanyaan adalah awal petualangan. Arena Belajar menjadi tempat untuk mencoba, bermain, dan memahami hal baru lewat beragam media — untuk siswa yang ingin menjelajah dan guru yang ingin menginspirasi.</p><div class="creator-card"><span class="creator-monogram" aria-hidden="true">YK</span><div><strong>Yudi Kurniawan</strong><span>Guru IPA · SMP Negeri 3 Segedong</span><span>Kreator Arena Belajar</span></div></div><a class="button primary" href="#koleksi">Mulai penemuanmu<svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></div></section>
   </main>
-  <footer class="site-footer shell"><a class="footer-brand" href="./">Arena Belajar</a><p>Belajar. Bermain. Bertumbuh.</p><a class="footer-top" href="#hero-title">Kembali ke atas<svg class="icon" aria-hidden="true"><use href="#icon-up-right"/></svg></a></footer>
+  <footer class="site-footer shell space-readable"><a class="footer-brand" href="./">Arena Belajar</a><p>Belajar. Bermain. Bertumbuh.</p><a class="footer-top" href="#hero-title">Kembali ke atas<svg class="icon" aria-hidden="true"><use href="#icon-up-right"/></svg></a></footer>
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 </body>
 </html>
