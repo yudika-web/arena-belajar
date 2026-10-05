@@ -363,3 +363,209 @@ select option{background:#142B40;color:var(--ink)}
 @media(prefers-reduced-transparency:reduce){
   :root{--space-glass-fill:#142B40;--space-glass-effect:none;--space-control-effect:none}
 }
+
+/* Sistem kaca V5
+   Aturan tampilan kaca lama kini tertimpa: Panel kaca antariksa,
+   Kaca versi 2, Kaca ringkas V3, dan Kaca konsisten V4.
+   Aturan ukuran, tata letak, animasi dan aset dari blok lama tetap berlaku. */
+:root{
+  --ink:#FAFCFF;--muted:#F4F8FF;--focus:#FFDC78;
+  --space-main-tint:rgba(10,23,44,.24);
+  --space-main-wash:rgba(255,255,255,.06);
+  --space-item-tint:rgba(10,23,44,.20);
+  --space-item-wash:rgba(255,255,255,.025);
+  --space-control-tint:rgba(10,23,44,.38);
+  --space-control-wash:rgba(255,255,255,.06);
+  --space-badge-tint:rgba(63,42,10,.38);
+  --space-overlay-tint:rgba(10,23,44,.72);
+  --space-cover-tint:rgba(10,23,44,.82);
+  --space-label-ink:#FFF9DE;
+  --space-glass-rim:rgba(255,255,255,.26);
+  --glass-shine:linear-gradient(135deg,rgba(255,255,255,.14),transparent 42%);
+  --space-glass-shadow:inset 0 0 0 1px var(--space-glass-rim),inset 0 1px 0 rgba(255,255,255,.28),0 12px 32px rgba(2,6,18,.20);
+  --space-control-shadow:inset 0 0 0 1px var(--space-glass-rim),inset 0 1px 0 rgba(255,255,255,.28),0 3px 10px rgba(2,6,18,.12);
+  --space-glass-effect:blur(16px) saturate(155%);
+  --space-item-effect:blur(10px) saturate(155%);
+  --space-cover-effect:blur(8px) saturate(140%);
+  --space-overlay-effect:blur(20px) saturate(155%);
+  --space-control-effect:none;
+  --space-night-veil:rgba(2,6,18,.64);
+  --space-orb-size:clamp(240px,36vw,520px);
+  --space-glass-fill:var(--space-main-tint);
+  --glass-tint:var(--space-main-tint);--glass-edge:var(--space-glass-rim);
+  --space-main-fill:var(--glass-shine),linear-gradient(var(--space-main-wash),var(--space-main-wash)),var(--space-main-tint);
+  --space-item-fill:var(--glass-shine),linear-gradient(var(--space-item-wash),var(--space-item-wash)),var(--space-item-tint);
+  --space-control-fill:var(--glass-shine),linear-gradient(var(--space-control-wash),var(--space-control-wash)),var(--space-control-tint);
+  --space-badge-fill:var(--glass-shine),var(--space-badge-tint);
+  --space-overlay-fill:var(--glass-shine),var(--space-overlay-tint);
+  --space-cover-fill:var(--glass-shine),var(--space-cover-tint);
+}
+/* Enam orb statis: di atas nebula, di bawah planet, bintang dan meteor.
+   Lapisan malam berlaku merata pada latar; panel tidak memakai brightness(). */
+.space-bg{isolation:isolate}
+.space-bg::before{
+  content:'';position:absolute;inset:0;z-index:-2;pointer-events:none;
+  background-image:
+    radial-gradient(circle,rgba(70,145,255,.60),transparent 70%),
+    radial-gradient(circle,rgba(151,106,244,.55),transparent 70%),
+    radial-gradient(circle,rgba(255,173,174,.55),transparent 70%),
+    radial-gradient(circle,rgba(55,214,195,.60),transparent 70%),
+    radial-gradient(circle,rgba(255,212,93,.35),transparent 70%),
+    radial-gradient(circle,rgba(255,173,174,.45),transparent 70%);
+  background-size:var(--space-orb-size) var(--space-orb-size);
+  background-position:0% 0%,100% 12%,15% 55%,85% 70%,50% 100%,52% 22%;
+  background-repeat:no-repeat;
+}
+.space-bg::after{
+  content:'';display:block;position:absolute;inset:0;z-index:1;
+  background:var(--space-night-veil);pointer-events:none;
+}
+/* Tingkat 1: satu blur pada panel, tanpa mengubah dimensi border lama. */
+.site-header,.hero-copy,.music-player,.now-playing,.liner-notes,
+.rack-section .section-heading,.toolbar,.site-footer,.music-noscript,
+.tracklist-section .section-heading>div{
+  background:var(--space-main-fill);color:var(--ink);border-color:transparent;
+  box-shadow:var(--space-glass-shadow);
+  -webkit-backdrop-filter:var(--space-glass-effect);backdrop-filter:var(--space-glass-effect);
+}
+.rack-section,.tracklist-section{
+  background:transparent;border-color:transparent;box-shadow:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+.space-readable::before{content:none;display:none}
+/* Isi panel dan footer memakai kaca induk, tanpa lapisan blur kedua. */
+.space-reading,.now-copy,.now-track,.notes-copy,.music-heading,.hero-stats,
+.rack-section .section-heading>div,.notes-art,.notes-art>span,.creator-card,
+.track-title,.track-number,.track-genre,.track-duration,.track-button>.icon,
+.toolbar label,.music-track-field label,.music-volume-field label,.music-hint,
+.now-action small,.primary-nav a,.brand>span:not(.brand-mark),
+.site-footer>a,.site-footer>p{
+  background:transparent;box-shadow:none;border-color:transparent;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+/* Tingkat 2: satu tangkapan latar untuk seluruh bar genre atau daftar.
+   Jarak antarkartu tetap transparan; tidak ada panel pembungkus baru. */
+.genre-bar,.tracklist-items,.loading-state{
+  background:transparent;
+  -webkit-backdrop-filter:var(--space-item-effect);backdrop-filter:var(--space-item-effect);
+}
+.genre-chip,.genre-chip[data-filter],.genre-chip.is-empty,
+.genre-chip.is-active,.genre-chip.is-empty.is-active,.genre-chip[data-filter].is-active,
+.tracklist-items>li,.skeleton{
+  background:var(--space-item-fill);color:var(--ink);border-color:transparent;
+  box-shadow:var(--space-control-shadow);
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+.scene-bubble,.bubble-two,.scene-caption,.carousel-help,.empty-state,.tracklist-placeholder{
+  background:var(--space-item-fill);color:var(--ink);border-color:transparent;
+  box-shadow:var(--space-glass-shadow);
+  -webkit-backdrop-filter:var(--space-item-effect);backdrop-filter:var(--space-item-effect);
+}
+.scene-bubble::after{border-color:var(--space-glass-rim)}
+/* Tingkat 3: kontrol berisi putih 6%, tint dan kilau; tidak memiliki blur. */
+.admin-link,.button.secondary,.reset-button,.search-box,select,.music-mute,
+.icon-button,.tag-sticker,.tag-sticker:nth-child(2n),.results-label,
+.carousel-counter,.tracklist-section .label{
+  background:var(--space-control-fill);color:var(--ink);border-color:transparent;
+  box-shadow:var(--space-control-shadow);
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+.admin-link:hover,.button.secondary:hover,.reset-button:hover,.music-mute:hover,
+.icon-button:hover:not(:disabled){
+  background:var(--space-control-fill);color:var(--space-label-ink);border-color:transparent;
+  box-shadow:var(--space-control-shadow),0 0 0 1px var(--focus);
+}
+.genre-chip.is-active,.genre-chip.is-empty.is-active,.genre-chip[data-filter].is-active{
+  color:var(--space-label-ink);
+  box-shadow:var(--space-control-shadow),inset 0 0 0 2px var(--focus);
+}
+.genre-chip.is-empty{color:var(--muted)}
+.track-button:hover{background:rgba(255,255,255,.025)}
+.track-button[aria-current=true]{background:rgba(255,255,255,.025);box-shadow:inset 4px 0 0 var(--focus)}
+/* Tingkat 4: lencana bertint emas tua, tanpa blur bersarang. */
+.brand-mark,.music-badge,.creator-monogram,.stamp,.hero-sticker,.vinyl,.vinyl-label{
+  background:var(--space-badge-fill);color:var(--space-label-ink);border-color:transparent;
+  box-shadow:var(--space-control-shadow);
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+.vinyl::before{border-color:var(--space-glass-rim)}
+/* Tingkat 5: header lengket, gelembung hero dan toast dapat menimpa
+   gambar terang yang tidak berada di space-bg, maka tint 72%.
+   Judul sampul juga diperkuat: gambar data dapat berwarna putih penuh.
+   Hanya judul memiliki blur; stiker kategori tidak membuat akar backdrop baru. */
+.site-header,.scene-bubble,.bubble-two,.scene-caption,.toast{
+  background:var(--space-overlay-fill);color:var(--ink);border-color:transparent;
+  box-shadow:var(--space-glass-shadow);
+  -webkit-backdrop-filter:var(--space-overlay-effect);backdrop-filter:var(--space-overlay-effect);
+}
+.cover-title,.cover-category,.new-badge,.cover-emblem,.vinyl-label,.sleeve-label,.album-slide.is-active .sleeve-label{
+  background:var(--space-cover-fill);color:var(--ink);border-color:transparent;
+  box-shadow:var(--space-control-shadow);
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+.cover-title{
+  -webkit-backdrop-filter:var(--space-cover-effect);backdrop-filter:var(--space-cover-effect);
+}
+.cover-title strong{color:var(--ink)}
+.eyebrow,.label,.cover-track,.carousel-counter,.track-number,
+.tag-sticker,.tag-sticker:nth-child(2n),.sleeve-label,.album-slide.is-active .sleeve-label{
+  color:var(--space-label-ink);
+}
+.new-badge{color:#F1FFF5}
+/* Sampul, maskot, tombol utama dan pilihan dropdown tetap seperti semula. */
+select option{background:#142B40;color:var(--ink)}
+.search-box input::placeholder{color:var(--muted);opacity:1}
+.results-label:empty{background:transparent;box-shadow:none}
+:focus-visible,.search-box input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.album-carousel:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.track-button:focus-visible{outline:3px solid var(--focus);outline-offset:-5px}
+@media(max-width:600px){
+  :root{
+    --space-glass-effect:blur(9px) saturate(150%);
+    --space-item-effect:blur(8px) saturate(150%);
+    --space-cover-effect:blur(6px) saturate(140%);
+    --space-overlay-effect:blur(12px) saturate(150%);
+  }
+}
+/* Cadangan tanpa dukungan kaca: permukaan 84%, tanpa blur. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  :root{
+    --space-main-tint:rgba(10,23,44,.84);--space-main-wash:transparent;
+    --space-item-tint:rgba(10,23,44,.84);--space-item-wash:transparent;
+    --space-control-tint:rgba(10,23,44,.84);--space-control-wash:transparent;
+    --space-badge-tint:rgba(63,42,10,.84);
+    --space-overlay-tint:rgba(10,23,44,.84);--space-cover-tint:rgba(10,23,44,.84);
+    --space-glass-effect:none;--space-item-effect:none;
+    --space-cover-effect:none;--space-overlay-effect:none;
+  }
+}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){
+  :root{
+    --space-main-tint:#142B40;--space-main-wash:transparent;
+    --space-item-tint:#142B40;--space-item-wash:transparent;
+    --space-control-tint:#142B40;--space-control-wash:transparent;
+    --space-badge-tint:#39280F;--space-overlay-tint:#142B40;--space-cover-tint:#142B40;
+    --glass-shine:linear-gradient(transparent,transparent);
+    --space-glass-rim:rgba(255,255,255,.65);
+    --space-glass-effect:none;--space-item-effect:none;
+    --space-cover-effect:none;--space-overlay-effect:none;
+  }
+}
+@media(forced-colors:active){
+  .site-header,.hero-copy,.music-player,.now-playing,.liner-notes,.site-footer,
+  .rack-section .section-heading,.toolbar,.tracklist-section .section-heading>div,
+  .music-noscript,.scene-bubble,.scene-caption,.carousel-help,.empty-state,
+  .genre-chip,.genre-chip[data-filter],.tracklist-items>li,.tracklist-placeholder,
+  .brand-mark,.music-badge,.creator-monogram,.stamp,.hero-sticker,.vinyl,.vinyl-label,
+  .admin-link,.button.secondary,.reset-button,.search-box,select,.music-mute,
+  .icon-button,.tag-sticker,.results-label,.carousel-counter,.tracklist-section .label,
+  .toast,.cover-title,.cover-category,.new-badge,.cover-emblem,.sleeve-label,.skeleton{
+    background:Canvas!important;color:CanvasText!important;box-shadow:none!important;
+    border-color:CanvasText!important;outline:1px solid CanvasText;outline-offset:-1px;
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
+  .genre-bar,.tracklist-items,.loading-state{-webkit-backdrop-filter:none;backdrop-filter:none}
+  :focus-visible,.album-carousel:focus-visible,.track-button:focus-visible{
+    outline:3px solid Highlight!important;outline-offset:3px;
+  }
+}
