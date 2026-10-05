@@ -25,6 +25,29 @@
   let pending = false;
   let generation = 0;
   let rememberedVolume = 20;
+  let awaitingGesture = false;
+
+  function clearGestureStart() {
+    awaitingGesture = false;
+    document.removeEventListener('click', resumeAutoplay);
+    document.removeEventListener('keydown', resumeAutoplay);
+  }
+
+  function waitForGesture() {
+    if (awaitingGesture) return;
+    awaitingGesture = true;
+    document.addEventListener('click', resumeAutoplay);
+    document.addEventListener('keydown', resumeAutoplay);
+  }
+
+  function resumeAutoplay(event) {
+    if (!awaitingGesture || event.defaultPrevented) return;
+    // Kontrol musik menangani tindakannya sendiri. Tab/modifier tidak memicu suara.
+    if (event.target instanceof Element && event.target.closest('#music-player')) return;
+    if (event.type === 'keydown' && (event.repeat || event.ctrlKey || event.metaKey || event.altKey || !['Enter', ' '].includes(event.key))) return;
+    clearGestureStart();
+    start(true);
+  }
 
   function updateButton() {
     const running = desired && (pending || !audio.paused);
@@ -47,9 +70,11 @@
   }
 
   function reportFailure(message) {
+    clearGestureStart();
     generation += 1;
     desired = false;
     pending = false;
+    audio.autoplay = false;
     audio.pause();
     // Permintaan berikutnya akan memuat ulang sumber yang gagal.
     loaded = -1;
@@ -57,7 +82,8 @@
     updateButton();
   }
 
-  async function start() {
+  async function start(automatic = false) {
+    clearGestureStart();
     const request = ++generation;
     desired = true;
     pending = true;
@@ -79,17 +105,27 @@
       updateButton();
     } catch (error) {
       if (request !== generation) return;
-      const message = error.name === 'NotAllowedError'
-        ? 'Browser menahan pemutaran. Tekan Putar untuk mencoba lagi.'
-        : 'Musik belum bisa diputar. Periksa koneksi dan aset audio, lalu tekan Putar untuk mencoba lagi.';
-      reportFailure(message);
+      if (error.name === 'NotAllowedError') {
+        desired = false;
+        pending = false;
+        audio.autoplay = false;
+        status.textContent = automatic
+          ? 'Browser membatasi autoplay. Klik atau ketuk laman, atau tekan Putar untuk mulai.'
+          : 'Browser menahan pemutaran. Tekan Putar untuk mencoba lagi.';
+        updateButton();
+        if (automatic) waitForGesture();
+      } else {
+        reportFailure('Musik belum bisa diputar. Periksa koneksi dan aset audio, lalu tekan Putar untuk mencoba lagi.');
+      }
     }
   }
 
   function pause() {
+    clearGestureStart();
     generation += 1;
     desired = false;
     pending = false;
+    audio.autoplay = false;
     audio.pause();
     status.textContent = `Musik dijeda: ${tracks[selected].title}.`;
     updateButton();
@@ -99,7 +135,8 @@
   select.addEventListener('change', () => {
     const index = Number(select.value);
     if (!Number.isInteger(index) || !tracks[index]) return;
-    const resume = desired;
+    const resume = desired || awaitingGesture;
+    clearGestureStart();
     generation += 1;
     desired = false;
     pending = false;
@@ -139,4 +176,6 @@
   setVolume(volume.value);
   player.hidden = false;
   updateButton();
+  // Play promise menentukan keberhasilan; jangan menganggap autoplay selalu diizinkan.
+  start(true);
 })();
