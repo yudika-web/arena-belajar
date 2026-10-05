@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/style.css">
   <script src="./assets/app.js" defer></script>
+  <script src="./assets/music.js" defer></script>
   <noscript><style>.loading-state,.toolbar,.genre-bar,.results-label,.hero-stats,#tracklist-placeholder{display:none}.hero-actions #surprise-button{display:none}</style></noscript>
 </head>
 <body>
@@ -29,6 +30,10 @@
       <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
       <symbol id="icon-up-right" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol>
       <symbol id="icon-play" viewBox="0 0 24 24"><path d="m8 4 12 8-12 8z"/></symbol>
+      <symbol id="icon-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+      <symbol id="icon-music" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13M9 8l11-2"/><ellipse cx="6" cy="18" rx="3" ry="2.5"/><ellipse cx="17" cy="16" rx="3" ry="2.5"/></symbol>
+      <symbol id="icon-volume" viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3zM16 8a6 6 0 0 1 0 8M19 5a10 10 0 0 1 0 14"/></symbol>
+      <symbol id="icon-mute" viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3zM16 9l6 6m0-6-6 6"/></symbol>
       <symbol id="icon-shuffle" viewBox="0 0 24 24"><path d="M3 6h3c5 0 7 12 12 12h3M17 14l4 4-4 4M3 18h3c2 0 4-3 6-6s4-6 6-6h3M17 2l4 4-4 4"/></symbol>
       <symbol id="icon-reset" viewBox="0 0 24 24"><path d="M4 9a8 8 0 1 1 0 6M4 3v6h6"/></symbol>
       <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
@@ -81,6 +86,18 @@
         <div class="scene-caption"><svg class="icon" aria-hidden="true"><use href="#icon-play"/></svg>Petualangan dimulai dari rasa ingin tahu.</div>
       </div>
     </section>
+    <!-- Audio terpisah; tidak diunduh atau diputar sebelum pengguna menekan Putar. -->
+    <section class="music-player shell" id="music-player" aria-labelledby="music-title" hidden>
+      <div class="music-heading"><span class="music-badge" aria-hidden="true"><svg class="icon"><use href="#icon-music"/></svg></span><div><h2 id="music-title">Musik petualanganmu</h2><p id="music-status" role="status" aria-live="polite">Musik belum diputar. Tekan Putar untuk mulai.</p></div></div>
+      <div class="music-controls">
+        <button class="button primary music-toggle" id="music-toggle" type="button" aria-label="Putar musik latar"><svg class="icon" aria-hidden="true"><use id="music-toggle-icon" href="#icon-play"/></svg><span id="music-toggle-label">Putar</span></button>
+        <div class="music-track-field"><label for="music-track">Pilih musik</label><select id="music-track"><option value="0">Final Chord</option><option value="1">Final Boss</option><option value="2">Final Stand</option></select></div>
+        <div class="music-volume-field"><label for="music-volume">Volume <output id="music-volume-value" for="music-volume">20%</output></label><div class="music-volume-row"><button class="music-mute" id="music-mute" type="button" aria-label="Senyapkan musik" aria-pressed="false"><svg class="icon" aria-hidden="true"><use id="music-mute-icon" href="#icon-volume"/></svg></button><input id="music-volume" type="range" min="0" max="100" step="5" value="20" aria-valuetext="20 persen"></div></div>
+      </div>
+      <audio id="background-music" preload="none" aria-hidden="true"></audio>
+      <p class="music-hint">Opsional. Lagu berganti otomatis setelah selesai; kamu bisa menjeda kapan saja.</p>
+    </section>
+    <noscript><div class="shell music-noscript"><p>Unduh musik petualangan: <a href="./assets/audio/final-chord.mp3">Final Chord</a> · <a href="./assets/audio/final-boss.mp3">Final Boss</a> · <a href="./assets/audio/final-stand.mp3">Final Stand</a>.</p></div></noscript>
     <section class="rack-section" id="koleksi" aria-labelledby="rack-title">
       <div class="shell">
         <div class="section-heading"><div><p class="eyebrow">PILIH WAHANA BELAJARMU</p><h2 id="rack-title">Mau bermain di mana hari ini?</h2><p>Geser kartu, temukan yang menarik, lalu mulai petualanganmu.</p></div><span class="stamp" aria-hidden="true">AYO<br>COBA!</span></div>
