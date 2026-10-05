@@ -287,3 +287,79 @@ body{background-image:linear-gradient(rgba(10,23,44,.12),rgba(10,23,44,.12)),url
   .scene-caption,.toast,.empty-state{--glass-tint:#142B40}
   .hero-copy,.tracklist-items>li{-webkit-backdrop-filter:none;backdrop-filter:none}
 }
+
+/* Kaca konsisten V4: satu permukaan kaca, tanpa kotak baca bertumpuk. */
+:root{
+  --space-glass-fill:rgba(10,23,44,.30);
+  --space-glass-effect:blur(7px) brightness(.46);
+  --space-control-effect:blur(2px);
+  --space-glass-rim:rgba(209,235,255,.42);
+  --space-glass-shadow:inset 0 1px 0 rgba(239,249,255,.20),0 10px 28px rgba(3,10,26,.22);
+  --glass-tint:var(--space-glass-fill);
+}
+/* Isi panel ikut kaca induknya; tidak ada lapisan gelap tambahan. */
+.space-reading,.now-copy,.now-track,.notes-copy,.music-heading,
+.rack-section .section-heading>div,.hero-stats,.track-title,.track-number,
+.track-genre,.track-duration,.track-button>.icon,.notes-art>span,
+.toolbar label,.music-track-field label,.music-volume-field label,.music-hint,
+.now-action small,.primary-nav a,.brand>span:not(.brand-mark){
+  background:transparent;border:0;box-shadow:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+/* Brightness hanya pada latar di balik kaca, bukan pada teks atau maskot. */
+.site-header,.hero-copy,.music-player,.now-playing,.liner-notes,
+.rack-section .section-heading,.toolbar,.genre-chip,.genre-chip[data-filter],
+.tracklist-items>li,.tracklist-section .section-heading>div,
+.tracklist-section .label,.tracklist-placeholder,.results-label,
+.carousel-counter,.carousel-help,.scene-caption,.scene-bubble,.bubble-two,
+.toast,.empty-state,.site-footer>a,.site-footer>p,
+.cover-title,.cover-category,.new-badge,.sleeve-label,.album-slide.is-active .sleeve-label,
+.icon-button,.skeleton{
+  background:var(--glass-shine),var(--space-glass-fill);
+  color:var(--ink);border-color:var(--space-glass-rim);
+  box-shadow:var(--space-glass-shadow);
+  -webkit-backdrop-filter:var(--space-glass-effect);
+  backdrop-filter:var(--space-glass-effect);
+}
+.site-header{box-shadow:0 5px 22px rgba(3,10,26,.22)}
+.tracklist-section .section-heading>div,.tracklist-section .label,
+.tracklist-placeholder,.results-label,.carousel-counter,.carousel-help,
+.site-footer>a,.site-footer>p{border:1px solid var(--space-glass-rim)}
+.scene-bubble{border-width:1px}.scene-bubble::after{border-color:var(--space-glass-rim)}
+.cover-title{border-top-width:1px;box-shadow:inset 0 1px 0 rgba(239,249,255,.24)}
+.cover-title strong{color:var(--ink)}.cover-track{color:var(--accent)}
+.cover-category,.new-badge,.sleeve-label{border-width:1px}
+.new-badge{border:1px solid rgba(202,255,222,.60);color:#E7FFEF}
+.sleeve-label,.album-slide.is-active .sleeve-label{color:var(--accent);border-color:rgba(255,220,120,.65)}
+/* Kontrol di dalam kaca memakai blur tipis, tanpa menggandakan brightness. */
+.admin-link,.button.secondary,.reset-button,.search-box,select,.music-mute,
+.tag-sticker,.tag-sticker:nth-child(2n){
+  background:var(--glass-shine),rgba(10,23,44,.12);color:var(--ink);
+  border-color:var(--space-glass-rim);
+  box-shadow:inset 0 1px 0 rgba(239,249,255,.15);
+  -webkit-backdrop-filter:var(--space-control-effect);backdrop-filter:var(--space-control-effect);
+}
+.tag-sticker,.tag-sticker:nth-child(2n){color:var(--accent);border-color:rgba(255,220,120,.45)}
+.admin-link:hover,.button.secondary:hover,.reset-button:hover,.music-mute:hover{
+  background:var(--glass-shine),rgba(10,23,44,.12);color:var(--accent);border-color:var(--accent);
+}
+.icon-button:hover:not(:disabled){background:var(--glass-shine),var(--space-glass-fill);color:var(--accent);border-color:var(--accent)}
+.genre-chip.is-empty{background:var(--glass-shine),var(--space-glass-fill);color:var(--muted)}
+.genre-chip.is-active,.genre-chip.is-empty.is-active,.genre-chip[data-filter].is-active{
+  background:var(--glass-shine),var(--space-glass-fill);color:var(--accent);
+  border:2px solid var(--accent);
+  box-shadow:inset 0 1px 0 rgba(255,241,184,.24),0 0 0 2px rgba(255,220,120,.12),0 5px 20px rgba(255,220,120,.12);
+}
+.track-button:hover{background:rgba(255,255,255,.03)}
+.track-button[aria-current=true]{background:rgba(255,220,120,.03);box-shadow:inset 4px 0 0 var(--accent)}
+.track-number,.carousel-counter{color:var(--accent)}
+.album-stage::after{height:0;background:transparent;border-top:1px dashed var(--space-glass-rim)}
+/* Pilihan pada menu bawaan tetap memakai permukaan yang terbaca. */
+select option{background:#142B40;color:var(--ink)}
+@media(max-width:600px){:root{--space-glass-effect:blur(4px) brightness(.46)}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  :root{--space-glass-fill:rgba(10,23,44,.80)}
+}
+@media(prefers-reduced-transparency:reduce){
+  :root{--space-glass-fill:#142B40;--space-glass-effect:none;--space-control-effect:none}
+}
