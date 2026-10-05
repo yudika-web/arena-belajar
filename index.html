@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#F4EBDD">
+  <meta name="theme-color" content="#F3FAFF">
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="Arena Belajar: rak koleksi worksheet, media interaktif, game edukasi, lab maya, aplikasi, dan modul ajar untuk siswa dan guru.">
-  <title>Arena Belajar — Putar rasa ingin tahumu</title>
+  <title>Arena Belajar — Belajar seru, petualangan baru</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/style.css">
   <script src="./assets/app.js" defer></script>
   <noscript><style>.loading-state,.toolbar,.genre-bar,.results-label,.hero-stats,#tracklist-placeholder{display:none}.hero-actions #surprise-button{display:none}</style></noscript>
@@ -18,7 +18,7 @@
   <!-- Satu set ikon garis; semua ikon dekoratif disembunyikan dari pembaca layar. -->
   <svg class="svg-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
-      <symbol id="icon-record" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="1.5"/><path d="M5.8 9a7 7 0 0 1 3.2-3.2M15 18.2a7 7 0 0 0 3.2-3.2"/></symbol>
+      <symbol id="icon-record" viewBox="0 0 24 24"><path d="M8 15c-1-6 4-11 12-12 1 8-4 13-10 12zm0 0-3 3M8 8H4l-2 6 6-1M15 16v4l-6 2 1-6M4 18l-2 4 4-2"/><circle cx="15" cy="8" r="2"/></symbol>
       <symbol id="icon-worksheet" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h5"/></symbol>
       <symbol id="icon-mpi" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4m-2-13 5 3-5 3z"/></symbol>
       <symbol id="icon-game" viewBox="0 0 24 24"><path d="M7 7h10c2 0 3 2 4 7s-1 6-4 3l-2-2H9l-2 2c-3 3-5 2-4-3S5 7 7 7zM7 10v5M4.5 12.5h5M16 11h.1M18 14h.1"/></symbol>
@@ -36,29 +36,55 @@
     </defs>
   </svg>
   <svg class="paper-texture" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="100%" height="100%" filter="url(#paper-grain)"/></svg>
-  <a class="skip-link" href="#koleksi">Langsung ke Rak Album</a>
+  <a class="skip-link" href="#koleksi">Langsung ke Arena Bermain</a>
   <header class="site-header">
     <div class="header-main shell">
       <a class="brand" href="./" aria-label="Arena Belajar, beranda"><span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#icon-record"/></svg></span><span>Arena<br><strong>Belajar</strong></span></a>
-      <nav class="primary-nav" aria-label="Navigasi utama"><a href="#koleksi">Rak Album</a><a href="#tracklist">Tracklist</a><a href="#tentang">Catatan Sampul</a></nav>
+      <nav class="primary-nav" aria-label="Navigasi utama"><a href="#koleksi">Arena Bermain</a><a href="#tracklist">Daftar Petualangan</a><a href="#tentang">Tentang Arena</a></nav>
       <a class="admin-link" href="./admin/">Ruang Admin<svg class="icon" aria-hidden="true"><use href="#icon-up-right"/></svg></a>
     </div>
   </header>
   <main>
     <section class="hero shell" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">KOLEKSI BELAJAR, DIKURASI DENGAN RASA.</p>
-        <h1 id="hero-title">Putar rasa<br>ingin <span>tahumu.</span></h1>
-        <p class="hero-text">Ada penemuan di setiap sampul. Pilih koleksi, coba sesuatu yang baru, dan temukan cara belajar yang kamu suka.</p>
-        <div class="hero-actions"><a class="button primary" id="explore-button" href="#koleksi">Jelajahi rak<svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a><button class="button secondary" id="surprise-button" type="button" disabled>Pilihkan untuk saya<svg class="icon" aria-hidden="true"><use href="#icon-shuffle"/></svg></button></div>
-        <dl class="hero-stats"><div><dt>Koleksi belajar</dt><dd id="total-collections">—</dd></div><div><dt>Genre terisi</dt><dd id="total-genres">—</dd></div></dl>
+        <p class="eyebrow">HALO, PENJELAJAH KECIL!</p>
+        <h1 id="hero-title">Belajar seru.<br>Petualangan <span>baru!</span></h1>
+        <p class="hero-text">Ayo masuk ke Arena Belajar! Pilih petualanganmu, mainkan rasa ingin tahu, dan temukan hal baru bersama teman astronot kita.</p>
+        <div class="hero-actions"><a class="button primary" id="explore-button" href="#koleksi">Mulai petualangan<svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a><button class="button secondary" id="surprise-button" type="button" disabled>Pilihkan untuk saya<svg class="icon" aria-hidden="true"><use href="#icon-shuffle"/></svg></button></div>
+        <dl class="hero-stats"><div><dt>Koleksi belajar</dt><dd id="total-collections">—</dd></div><div><dt>Wahana terisi</dt><dd id="total-genres">—</dd></div></dl>
       </div>
-      <div class="hero-art" aria-hidden="true"><span class="hero-sticker">SISI A<br>RASA INGIN TAHU</span><div id="hero-fan" class="hero-fan"><div class="fan-placeholder" style="--fan-index:0"></div><div class="fan-placeholder" style="--fan-index:1"></div><div class="fan-placeholder" style="--fan-index:2"></div></div><span class="fan-caption">Buka sampulnya. Mulai penemuannya.</span></div>
+      <div class="hero-art playground-scene">
+        <svg class="playground-backdrop" viewBox="0 0 600 570" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <ellipse cx="315" cy="292" rx="250" ry="235" fill="#D9F0FF"/>
+          <path d="M70 431Q149 340 290 436Q438 331 556 424L543 514Q281 568 77 503Z" fill="#BDE7CC"/>
+          <path d="M115 481Q233 405 333 469Q425 532 509 461" fill="none" stroke="#FFE1A0" stroke-width="27" stroke-linecap="round"/>
+          <path d="M430 443V286h105v151" fill="#FFB8AC" stroke="#213E63" stroke-width="5" stroke-linejoin="round"/>
+          <path d="m420 286 62-55 66 55Z" fill="#FFCF66" stroke="#213E63" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M458 443v-67a24 24 0 0 1 48 0v67" fill="#FFF5D4" stroke="#213E63" stroke-width="4"/>
+          <path d="M136 438V333h69v105M137 333l34-38 34 38" fill="#A9D6FA" stroke="#213E63" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M203 404h80v15h-80M203 377h80v15h-80" fill="#FFDC88" stroke="#213E63" stroke-width="3"/>
+          <circle cx="483" cy="315" r="14" fill="#FFF7E9" stroke="#213E63" stroke-width="4"/>
+          <circle cx="97" cy="218" r="19" fill="#FFE27C"/><ellipse cx="97" cy="218" rx="32" ry="8" fill="none" stroke="#DE9E33" stroke-width="4" transform="rotate(-23 97 218)"/>
+          <path d="m420 89 5 13 14 1-11 9 4 14-12-8-12 8 4-14-11-9 14-1Z" fill="#FFC956" stroke="#213E63" stroke-width="2"/>
+          <path d="m159 109 4 10 11 1-9 7 3 11-9-6-9 6 3-11-9-7 11-1Z" fill="#FFB8AC"/>
+          <path d="M318 111v19m-9-9h19M549 171v14m-7-7h14" fill="none" stroke="#6695B9" stroke-width="4" stroke-linecap="round"/>
+          <path d="M66 146c0-11 12-18 21-10 8-13 26-10 28 4 15-2 20 19 4 21H78c-8 0-13-7-12-15Z" fill="#FFFFFF"/>
+          <path d="M494 112c0-9 11-15 18-8 7-11 22-8 23 4 14-2 17 16 3 18h-33c-7 0-12-6-11-14Z" fill="#FFFFFF"/>
+          <ellipse cx="270" cy="490" rx="142" ry="15" fill="#213E63" opacity=".1"/>
+        </svg>
+        <span class="scene-bubble bubble-one">Siap menjelajah?</span>
+        <div id="hero-fan" class="mascot-team">
+          <img class="mascot mascot-child" src="./assets/mascots/astronot-cilik.webp" width="900" height="1125" alt="Maskot anak astronot tersenyum sambil membawa bintang kuning" fetchpriority="high" decoding="async">
+          <img class="mascot mascot-cat" src="./assets/mascots/kucing-astronot.webp" width="820" height="1025" alt="Maskot kucing astronot melambaikan tangan" decoding="async">
+        </div>
+        <span class="scene-bubble bubble-two">Belajar + bermain!</span>
+        <div class="scene-caption"><svg class="icon" aria-hidden="true"><use href="#icon-play"/></svg>Petualangan dimulai dari rasa ingin tahu.</div>
+      </div>
     </section>
     <section class="rack-section" id="koleksi" aria-labelledby="rack-title">
       <div class="shell">
-        <div class="section-heading"><div><p class="eyebrow">SISI A / RAK ALBUM</p><h2 id="rack-title">Pilih yang bikin penasaran.</h2><p>Geser sampulnya, lalu jelajahi isi koleksinya.</p></div><span class="stamp" aria-hidden="true">DIKURASI<br>UNTUKMU</span></div>
-        <div id="filters" class="genre-bar" role="group" aria-label="Genre atau kategori koleksi"></div>
+        <div class="section-heading"><div><p class="eyebrow">PILIH WAHANA BELAJARMU</p><h2 id="rack-title">Mau bermain di mana hari ini?</h2><p>Geser kartu, temukan yang menarik, lalu mulai petualanganmu.</p></div><span class="stamp" aria-hidden="true">AYO<br>COBA!</span></div>
+        <div id="filters" class="genre-bar" role="group" aria-label="Wahana atau kategori koleksi"></div>
         <div class="toolbar">
           <div class="search-field"><label for="search">Cari koleksi</label><div class="search-box"><svg class="icon" aria-hidden="true"><use href="#icon-search"/></svg><input id="search" type="search" placeholder="Judul, topik, atau tag…" autocomplete="off"><kbd aria-hidden="true">/</kbd></div></div>
           <div class="sort-field"><label for="sort">Urutkan</label><select id="sort"><option value="featured">Urutan pengelola</option><option value="newest">Terbaru</option><option value="az">Judul A–Z</option><option value="za">Judul Z–A</option></select></div>
@@ -66,22 +92,22 @@
         </div>
         <p id="result-count" class="results-label" role="status"></p>
         <div id="loading-state" class="loading-state" role="status" aria-label="Sedang menyiapkan koleksi"><div class="skeleton-carousel" aria-hidden="true"><div class="skeleton side"></div><div class="skeleton center"></div><div class="skeleton side"></div></div><div class="skeleton skeleton-line" aria-hidden="true"></div></div>
-        <div id="error-state" class="empty-state" hidden><svg class="icon state-icon" aria-hidden="true"><use href="#icon-record"/></svg><h3>Rak belum bisa dibuka.</h3><p>Koleksi belum berhasil dimuat. Periksa koneksi, lalu coba kembali.</p><button class="button primary" id="retry-button" type="button">Coba lagi<svg class="icon" aria-hidden="true"><use href="#icon-reset"/></svg></button></div>
-        <div id="empty-state" class="empty-state" hidden><svg class="icon state-icon" aria-hidden="true"><use href="#icon-search"/></svg><h3 id="empty-title">Belum ada album yang cocok.</h3><p id="empty-text">Coba kata kunci lain atau buka semua genre.</p><button class="button secondary" id="empty-reset" type="button">Lihat semua koleksi</button></div>
+        <div id="error-state" class="empty-state" hidden><svg class="icon state-icon" aria-hidden="true"><use href="#icon-record"/></svg><h3>Arena belum bisa dibuka.</h3><p>Koleksi belum berhasil dimuat. Periksa koneksi, lalu coba kembali.</p><button class="button primary" id="retry-button" type="button">Coba lagi<svg class="icon" aria-hidden="true"><use href="#icon-reset"/></svg></button></div>
+        <div id="empty-state" class="empty-state" hidden><svg class="icon state-icon" aria-hidden="true"><use href="#icon-search"/></svg><h3 id="empty-title">Belum ada petualangan yang cocok.</h3><p id="empty-text">Coba kata kunci lain atau buka semua wahana.</p><button class="button secondary" id="empty-reset" type="button">Lihat semua koleksi</button></div>
         <div id="carousel-shell" hidden>
-          <div id="album-carousel" class="album-carousel" role="region" aria-roledescription="carousel" aria-label="Rak album koleksi belajar" aria-describedby="carousel-help" tabindex="0">
+          <div id="album-carousel" class="album-carousel" role="region" aria-roledescription="carousel" aria-label="Pilihan wahana belajar" aria-describedby="carousel-help" tabindex="0">
             <div id="collection-grid" class="album-stage" aria-busy="true"></div>
-            <div class="carousel-controls"><button class="icon-button previous" id="previous-button" type="button" aria-label="Album sebelumnya"><svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg></button><span class="carousel-counter" id="carousel-counter" aria-live="off">01 / 01</span><button class="icon-button" id="next-button" type="button" aria-label="Album berikutnya"><svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg></button></div>
-            <div class="progress-dots" id="progress-dots" role="group" aria-label="Pilih posisi album"></div>
+            <div class="carousel-controls"><button class="icon-button previous" id="previous-button" type="button" aria-label="Petualangan sebelumnya"><svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg></button><span class="carousel-counter" id="carousel-counter" aria-live="off">01 / 01</span><button class="icon-button" id="next-button" type="button" aria-label="Petualangan berikutnya"><svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg></button></div>
+            <div class="progress-dots" id="progress-dots" role="group" aria-label="Pilih petualangan"></div>
           </div>
-          <p class="carousel-help" id="carousel-help">Geser atau gunakan tombol panah. Saat rak fokus, tekan panah kiri/kanan, Home, End, atau Enter untuk membuka album aktif.</p>
+          <p class="carousel-help" id="carousel-help">Geser kartu atau gunakan tombol panah. Saat arena fokus, tekan panah kiri/kanan, Home, End, atau Enter untuk membuka koleksi pilihanmu.</p>
           <section class="now-playing" id="now-playing" aria-labelledby="now-playing-title" aria-live="polite" aria-atomic="true"></section>
         </div>
-        <noscript><div class="empty-state"><h3>Koleksi interaktif membutuhkan JavaScript.</h3><p>Aktifkan JavaScript untuk menggunakan rak, pencarian, dan Tracklist. Kamu tetap dapat membuka <a href="./data/koleksi.json">daftar koleksi dalam format JSON</a> atau membaca Catatan Sampul di bawah.</p></div></noscript>
+        <noscript><div class="empty-state"><h3>Koleksi interaktif membutuhkan JavaScript.</h3><p>Aktifkan JavaScript untuk menggunakan arena, pencarian, dan Daftar Petualangan. Kamu tetap dapat membuka <a href="./data/koleksi.json">daftar koleksi dalam format JSON</a> atau membaca Tentang Arena di bawah.</p></div></noscript>
       </div>
     </section>
-    <section class="tracklist-section shell" id="tracklist" aria-labelledby="tracklist-title" data-reveal><div class="section-heading"><div><p class="eyebrow">SISI B / DAFTAR KOLEKSI</p><h2 id="tracklist-title">Tracklist.</h2><p>Daftar lengkap sesuai pencarian dan genre pilihanmu.</p></div><span id="tracklist-count" class="label"></span></div><ol id="tracklist-items" class="tracklist-items"></ol><p id="tracklist-placeholder" class="tracklist-placeholder">Daftar akan tersedia setelah koleksi berhasil dimuat.</p></section>
-    <section class="liner-notes shell" id="tentang" aria-labelledby="notes-title" data-reveal><div class="notes-art" aria-hidden="true"><svg class="icon"><use href="#icon-record"/></svg><span>ARENA BELAJAR<br>CATATAN SAMPUL</span></div><div class="notes-copy"><p class="eyebrow">DITULIS DENGAN RASA INGIN TAHU</p><h2 id="notes-title">Catatan Sampul.</h2><p>Belajar bisa dimulai dari satu hal kecil yang membuat kita penasaran. Arena Belajar mengumpulkan berbagai format koleksi untuk siswa yang ingin mencoba dan guru yang ingin menginspirasi.</p><div class="creator-card"><span class="creator-monogram" aria-hidden="true">YK</span><div><strong>Yudi Kurniawan</strong><span>Guru IPA · SMP Negeri 3 Segedong</span><span>Kreator Arena Belajar</span></div></div><a class="button primary" href="#koleksi">Mulai penemuanmu<svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></div></section>
+    <section class="tracklist-section shell" id="tracklist" aria-labelledby="tracklist-title" data-reveal><div class="section-heading"><div><p class="eyebrow">LANJUTKAN RASA INGIN TAHUMU</p><h2 id="tracklist-title">Daftar Petualangan.</h2><p>Daftar lengkap sesuai pencarian dan wahana pilihanmu.</p></div><span id="tracklist-count" class="label"></span></div><ol id="tracklist-items" class="tracklist-items"></ol><p id="tracklist-placeholder" class="tracklist-placeholder">Daftar akan tersedia setelah koleksi berhasil dimuat.</p></section>
+    <section class="liner-notes shell" id="tentang" aria-labelledby="notes-title" data-reveal><div class="notes-art"><img src="./assets/mascots/kucing-astronot.webp" width="820" height="1025" alt="Kucing astronot, teman bermain di Arena Belajar" loading="lazy" decoding="async"><span>BERANI MENCOBA.<br>SENANG BELAJAR.</span></div><div class="notes-copy"><p class="eyebrow">SATU ARENA, BANYAK PENEMUAN</p><h2 id="notes-title">Tentang Arena.</h2><p>Setiap pertanyaan adalah awal petualangan. Arena Belajar menjadi tempat untuk mencoba, bermain, dan memahami hal baru lewat beragam media — untuk siswa yang ingin menjelajah dan guru yang ingin menginspirasi.</p><div class="creator-card"><span class="creator-monogram" aria-hidden="true">YK</span><div><strong>Yudi Kurniawan</strong><span>Guru IPA · SMP Negeri 3 Segedong</span><span>Kreator Arena Belajar</span></div></div><a class="button primary" href="#koleksi">Mulai penemuanmu<svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></div></section>
   </main>
   <footer class="site-footer shell"><a class="footer-brand" href="./">Arena Belajar</a><p>Belajar. Bermain. Bertumbuh.</p><a class="footer-top" href="#hero-title">Kembali ke atas<svg class="icon" aria-hidden="true"><use href="#icon-up-right"/></svg></a></footer>
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
