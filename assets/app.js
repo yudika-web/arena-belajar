@@ -2,14 +2,14 @@
 
 /* Data asli tidak diubah; track adalah nomor lokal sesuai urutan sumber. */
 const CATEGORIES = [
-  {key:'Worksheet',name:'Worksheet',icon:'worksheet',color:'#FFB703'},
-  {key:'MPI',name:'Media Interaktif',icon:'mpi',color:'#2A9D8F'},
-  {key:'Game',name:'Game Edukasi',icon:'game',color:'#E4572E'},
-  {key:'Lab Maya',name:'Lab Maya',icon:'lab',color:'#94B8A3'},
-  {key:'Aplikasi',name:'Aplikasi',icon:'app',color:'#E9A46F'},
-  {key:'Modul Ajar',name:'Modul Ajar',icon:'module',color:'#DDC589'}
+  {key:'Worksheet',name:'Worksheet',icon:'worksheet',color:'#FFD45D'},
+  {key:'MPI',name:'Media Interaktif',icon:'mpi',color:'#94DDC9'},
+  {key:'Game',name:'Game Edukasi',icon:'game',color:'#FFADAE'},
+  {key:'Lab Maya',name:'Lab Maya',icon:'lab',color:'#B8DDA1'},
+  {key:'Aplikasi',name:'Aplikasi',icon:'app',color:'#AFCFFF'},
+  {key:'Modul Ajar',name:'Modul Ajar',icon:'module',color:'#D2C1EE'}
 ];
-const FALLBACK_CATEGORY = {name:'Koleksi belajar',icon:'record',color:'#FFB703'};
+const FALLBACK_CATEGORY = {name:'Koleksi belajar',icon:'record',color:'#FFD45D'};
 const state = {items:[],results:[],filter:'Semua',query:'',sort:'featured',active:0,status:'loading'};
 const $ = selector => document.querySelector(selector);
 const els = {
@@ -73,7 +73,7 @@ function filteredItems(){
   return entries;
 }
 function renderGenres(){
-  const genres = [{key:'Semua',name:'Semua genre',icon:'record',color:'#FFB703'},...CATEGORIES];
+  const genres = [{key:'Semua',name:'Semua wahana',icon:'record',color:'#FFD45D'},...CATEGORIES];
   els.filters.innerHTML = genres.map(category=>{
     const count = category.key==='Semua' ? state.items.length : state.items.filter(({item})=>item.category===category.key).length;
     const active = state.filter === category.key;
@@ -85,7 +85,7 @@ function renderGenres(){
 function generativeCover(entry,compact=false){
   const {item,track} = entry, category=categoryOf(item);
   const image = safeURL(item.image);
-  return `<div class="generative-cover pattern-${category.icon}" style="--genre-color:${category.color}"><span class="cover-emblem">${icon(category.icon)}</span></div>${image?`<img class="album-image" data-image-url="${escapeHTML(image)}" alt="" loading="lazy" decoding="async" draggable="false">`:''}<span class="cover-category">${escapeHTML(category.name)}</span>${!compact && isNew(item)?'<span class="new-badge">Baru</span>':''}<span class="cover-title"><strong>${escapeHTML(titleOf(item))}</strong><span class="cover-track">Track<br>${pad(track)}</span></span>`;
+  return `<div class="generative-cover pattern-${category.icon}" style="--genre-color:${category.color}"><span class="cover-emblem">${icon(category.icon)}</span></div>${image?`<img class="album-image" data-image-url="${escapeHTML(image)}" alt="" loading="lazy" decoding="async" draggable="false">`:''}<span class="cover-category">${escapeHTML(category.name)}</span>${!compact && isNew(item)?'<span class="new-badge">Baru</span>':''}<span class="cover-title"><strong>${escapeHTML(titleOf(item))}</strong><span class="cover-track">Misi<br>${pad(track)}</span></span>`;
 }
 function armImages(container){
   container.querySelectorAll('img[data-image-url]').forEach(img=>{
@@ -94,15 +94,9 @@ function armImages(container){
     img.removeAttribute('data-image-url');
   });
 }
+// Maskot asli adalah elemen tetap; pemuatan data tidak mengganti gambar hero.
 function renderHero(){
-  const entries = state.items.slice(0,5);
-  if(!entries.length) return;
-  els.fan.innerHTML = entries.map((entry,i)=>{
-    // Satu album tetap di tengah; dua sampai lima sampul menyebar simetris.
-    const position = entries.length===1 ? 2 : i*4/(entries.length-1);
-    return `<div class="fan-cover" style="--fan-index:${position}">${generativeCover(entry,true)}</div>`;
-  }).join('');
-  armImages(els.fan);
+  els.fan.querySelectorAll('img').forEach(img=>{img.draggable=false;});
 }
 function renderSlides(){
   els.grid.innerHTML = state.results.map((entry,index)=>{
@@ -115,12 +109,12 @@ function renderSlides(){
 function renderTracklist(){
   els.tracks.innerHTML = state.results.map((entry,index)=>{
     const category = categoryOf(entry.item);
-    return `<li><button class="track-button" type="button" data-track-index="${index}" aria-label="Pusatkan Track ${pad(entry.track)}: ${escapeHTML(titleOf(entry.item))}" aria-current="false"><span class="track-number">Track ${pad(entry.track)}</span><span class="track-title">${escapeHTML(titleOf(entry.item))}</span><span class="track-genre">${icon(category.icon)}${escapeHTML(category.name)}</span><span class="track-duration">${escapeHTML(entry.item.duration || 'Durasi fleksibel')}</span>${icon('arrow')}</button></li>`;
+    return `<li><button class="track-button" type="button" data-track-index="${index}" aria-label="Pusatkan misi ${pad(entry.track)}: ${escapeHTML(titleOf(entry.item))}" aria-current="false"><span class="track-number">Misi ${pad(entry.track)}</span><span class="track-title">${escapeHTML(titleOf(entry.item))}</span><span class="track-genre">${icon(category.icon)}${escapeHTML(category.name)}</span><span class="track-duration">${escapeHTML(entry.item.duration || 'Durasi fleksibel')}</span>${icon('arrow')}</button></li>`;
   }).join('');
-  $('#tracklist-count').innerHTML=state.status==='ready' ? `${state.results.length} album` : '';
+  $('#tracklist-count').innerHTML=state.status==='ready' ? `${state.results.length} koleksi` : '';
   const placeholder=$('#tracklist-placeholder');
   placeholder.hidden=state.results.length>0;
-  if(state.status==='ready') placeholder.innerHTML=escapeHTML(state.items.length ? 'Tidak ada album dalam hasil pilihan ini.' : 'Tracklist akan terisi ketika koleksi tersedia.');
+  if(state.status==='ready') placeholder.innerHTML=escapeHTML(state.items.length ? 'Tidak ada koleksi dalam hasil pilihan ini.' : 'Tracklist akan terisi ketika koleksi tersedia.');
 }
 function renderDots(){
   const total=state.results.length;
@@ -129,13 +123,13 @@ function renderDots(){
   els.dots.hidden=total<=1;
   els.dots.innerHTML=Array.from({length:size},(_,i)=>{
     const index=first+i;
-    return `<button class="progress-dot" type="button" data-dot-index="${index}" aria-label="Album ${index+1} dari ${total}: ${escapeHTML(titleOf(state.results[index].item))}" aria-current="${index===state.active}"></button>`;
+    return `<button class="progress-dot" type="button" data-dot-index="${index}" aria-label="Koleksi ${index+1} dari ${total}: ${escapeHTML(titleOf(state.results[index].item))}" aria-current="${index===state.active}"></button>`;
   }).join('');
 }
 function panelMarkup(entry){
   const {item,track}=entry, category=categoryOf(item), url=safeURL(item.url), external=item.newTab!==false;
   const action = url ? `<a class="button primary" id="active-cta" href="${escapeHTML(url)}"${external?' target="_blank" rel="noopener noreferrer"':''} aria-label="${escapeHTML(item.cta || 'Mainkan')}: ${escapeHTML(titleOf(item))}${external?' (tab baru)':''}">${icon('play')}<span>${escapeHTML(item.cta || 'Mainkan')}</span></a><small>${external?'Dibuka di tab baru':'Dibuka di tab ini'}</small>` : '<span class="unavailable-link">Tautan belum tersedia</span>';
-  return `<div class="now-layout"><div class="now-track"><span class="now-label">SEDANG DIPUTAR</span><strong>${pad(track)}</strong><span>Track koleksi</span></div><div class="now-copy"><h3 id="now-playing-title">${escapeHTML(titleOf(item))}</h3><p class="now-description">${escapeHTML(item.description || 'Deskripsi belum tersedia untuk koleksi ini.')}</p><div class="now-meta"><span><strong>Genre:</strong> ${escapeHTML(category.name)}</span><span><strong>Tingkat:</strong> ${escapeHTML(item.level || 'Semua tingkat')}</span><span><strong>Durasi:</strong> ${escapeHTML(item.duration || 'Fleksibel')}</span></div>${tagsOf(item).length?`<div class="now-tags" aria-label="Tag koleksi">${tagsOf(item).map(tag=>`<span class="tag-sticker">${escapeHTML(tag)}</span>`).join('')}</div>`:''}</div><div class="now-action">${action}</div></div>`;
+  return `<div class="now-layout"><div class="now-track"><span class="now-label">PETUALANGAN PILIHANMU</span><strong>${pad(track)}</strong><span>Misi belajar</span></div><div class="now-copy"><h3 id="now-playing-title">${escapeHTML(titleOf(item))}</h3><p class="now-description">${escapeHTML(item.description || 'Deskripsi belum tersedia untuk koleksi ini.')}</p><div class="now-meta"><span><strong>Wahana:</strong> ${escapeHTML(category.name)}</span><span><strong>Tingkat:</strong> ${escapeHTML(item.level || 'Semua tingkat')}</span><span><strong>Durasi:</strong> ${escapeHTML(item.duration || 'Fleksibel')}</span></div>${tagsOf(item).length?`<div class="now-tags" aria-label="Tag koleksi">${tagsOf(item).map(tag=>`<span class="tag-sticker">${escapeHTML(tag)}</span>`).join('')}</div>`:''}</div><div class="now-action">${action}</div></div>`;
 }
 function renderPanel({immediate=false}={}){
   clearTimeout(panelTimer);
@@ -198,14 +192,14 @@ function renderView({desiredTrack=null,saveHash=true}={}){
   els.reset.disabled=!ready || (!state.query && state.filter==='Semua' && state.sort==='featured');
   els.surprise.disabled=!ready || !state.items.length;
   renderGenres();renderSlides();renderTracklist();
-  $('#result-count').innerHTML=ready ? `${state.results.length} dari ${state.items.length} album${state.filter==='Semua'?'':` · ${escapeHTML(CATEGORIES.find(c=>c.key===state.filter)?.name || state.filter)}`}` : '';
+  $('#result-count').innerHTML=ready ? `${state.results.length} dari ${state.items.length} koleksi${state.filter==='Semua'?'':` · ${escapeHTML(CATEGORIES.find(c=>c.key===state.filter)?.name || state.filter)}`}` : '';
   if(!state.items.length && ready){
-    $('#empty-title').innerHTML='Rak ini menunggu album pertamanya.';
+    $('#empty-title').innerHTML='Arena ini menunggu petualangan pertamanya.';
     $('#empty-text').innerHTML='Koleksi akan tampil di sini setelah tersedia.';
     $('#empty-reset').hidden=true;
   }else{
-    $('#empty-title').innerHTML='Belum ada album yang cocok.';
-    $('#empty-text').innerHTML='Coba kata kunci lain atau buka semua genre.';
+    $('#empty-title').innerHTML='Belum ada petualangan yang cocok.';
+    $('#empty-text').innerHTML='Coba kata kunci lain atau buka semua wahana.';
     $('#empty-reset').hidden=false;
   }
   clearTimeout(panelTimer);
@@ -273,7 +267,7 @@ els.grid.addEventListener('click',event=>{
   if(Date.now()<suppressClickUntil){event.preventDefault();return;}
   const index=Number(slide.dataset.index);
   if(index!==state.active){event.preventDefault();goTo(index,{focus:true});}
-  else if(!safeURL(state.results[index].item.url)){event.preventDefault();showToast('Tautan belum tersedia untuk album ini.');}
+  else if(!safeURL(state.results[index].item.url)){event.preventDefault();showToast('Tautan belum tersedia untuk koleksi ini.');}
 });
 els.grid.addEventListener('dragstart',event=>event.preventDefault());
 els.carousel.addEventListener('keydown',event=>{
