@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Penanda versi meminta CSS kaca terbaru setelah pembaruan GitHub. -->
-  <link rel="stylesheet" href="./assets/style.css?v=kaca-20261005-2">
+  <link rel="stylesheet" href="./assets/style.css?v=kaca-ringkas-20261005-3">
   <script src="./assets/app.js" defer></script>
   <script src="./assets/music.js" defer></script>
   <script src="./assets/space.js" defer></script>
@@ -65,9 +65,11 @@
   <main>
     <section class="hero shell" aria-labelledby="hero-title">
       <div class="hero-copy space-readable">
+        <div class="space-reading">
         <p class="eyebrow">HALO, PENJELAJAH KECIL!</p>
         <h1 id="hero-title">Belajar seru.<br>Petualangan <span>baru!</span></h1>
         <p class="hero-text">Ayo masuk ke Arena Belajar! Pilih petualanganmu, mainkan rasa ingin tahu, dan temukan hal baru bersama teman astronot kita.</p>
+        </div>
         <div class="hero-actions"><a class="button primary" id="explore-button" href="#koleksi">Mulai petualangan<svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a><button class="button secondary" id="surprise-button" type="button" disabled>Pilihkan untuk saya<svg class="icon" aria-hidden="true"><use href="#icon-shuffle"/></svg></button></div>
         <dl class="hero-stats"><div><dt>Koleksi belajar</dt><dd id="total-collections">—</dd></div><div><dt>Wahana terisi</dt><dd id="total-genres">—</dd></div></dl>
       </div>
@@ -115,7 +117,7 @@
             <div class="carousel-controls"><button class="icon-button previous" id="previous-button" type="button" aria-label="Petualangan sebelumnya"><svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg></button><span class="carousel-counter" id="carousel-counter" aria-live="off">01 / 01</span><button class="icon-button" id="next-button" type="button" aria-label="Petualangan berikutnya"><svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg></button></div>
             <div class="progress-dots" id="progress-dots" role="group" aria-label="Pilih petualangan"></div>
           </div>
-          <p class="carousel-help" id="carousel-help">Geser kartu atau gunakan tombol panah. Saat arena fokus, tekan panah kiri/kanan, Home, End, atau Enter untuk membuka koleksi pilihanmu.</p>
+          <p class="carousel-help" id="carousel-help">Geser sampul atau gunakan tombol panah. Keyboard: panah kiri/kanan, Home, End, Enter.</p>
           <section class="now-playing" id="now-playing" aria-labelledby="now-playing-title" aria-live="polite" aria-atomic="true"></section>
         </div>
         <noscript><div class="empty-state"><h3>Koleksi interaktif membutuhkan JavaScript.</h3><p>Aktifkan JavaScript untuk menggunakan arena, pencarian, dan Daftar Petualangan. Kamu tetap dapat membuka <a href="./data/koleksi.json">daftar koleksi dalam format JSON</a> atau membaca Tentang Arena di bawah.</p></div></noscript>
