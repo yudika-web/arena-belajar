@@ -11,10 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Tema dibaca sinkron sebelum CSS agar tidak berkedip saat memuat pilihan tersimpan. -->
-  <script src="./assets/theme.js?v=tema-20261006-11"></script>
-  <link rel="stylesheet" href="./assets/style.css?v=tema-20261006-11">
-  <link rel="stylesheet" href="./assets/day.css?v=tema-20261006-11">
-  <script src="./assets/glass-settings.js?v=tema-20261006-11"></script>
+  <script src="./assets/theme.js?v=tema-20261006-12"></script>
+  <link rel="stylesheet" href="./assets/style.css?v=tema-20261006-12">
+  <link rel="stylesheet" href="./assets/day.css?v=tema-20261006-12">
+  <link rel="stylesheet" href="./assets/loading.css?v=tema-20261006-12">
+  <script src="./assets/glass-settings.js?v=tema-20261006-12"></script>
+  <script src="./assets/loader.js?v=tema-20261006-12" defer onerror="document.documentElement.classList.remove('arena-loading');document.documentElement.classList.add('arena-ready')"></script>
   <script src="./assets/app.js" defer></script>
   <script src="./assets/music.js" defer></script>
   <!-- Runtime tema ditulis di posisi lama space.js agar urutan defer malam tetap terjaga. -->
@@ -22,6 +24,19 @@
   <noscript><style>.loading-state,.toolbar,.genre-bar,.results-label,.hero-stats,#tracklist-placeholder{display:none}.hero-actions #surprise-button{display:none}</style></noscript>
 </head>
 <body>
+  <div class="site-loader" id="site-loader" role="status" aria-live="polite" aria-atomic="true">
+    <div class="loader-card">
+      <span class="loader-emblem" aria-hidden="true">
+        <svg viewBox="0 0 48 48"><path d="M8 13.5c5-1.6 10.3-.8 16 2.6 5.7-3.4 11-4.2 16-2.6v24c-5-1.6-10.3-.8-16 2.6-5.7-3.4-11-4.2-16-2.6z"/><path d="M24 16.1v24M18 9.5l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6z"/></svg>
+      </span>
+      <p class="loader-kicker">ARENA BELAJAR</p>
+      <h1 class="loader-title">Menyiapkan petualangan…</h1>
+      <p class="loader-copy" id="loader-copy">Memuat dunia, karakter, koleksi, dan musik agar semuanya siap saat Arena dibuka.</p>
+      <div class="loader-progress" id="loader-progress" role="progressbar" aria-label="Kemajuan pemuatan Arena Belajar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="loader-progress-bar"></span></div>
+      <div class="loader-meta"><p class="loader-status" id="loader-status">Memeriksa aset…</p><p class="loader-percent" id="loader-percent">0%</p></div>
+      <p class="loader-tip">Aset tema lain baru dimuat ketika kamu mengganti mode, jadi tidak ada unduhan tema yang tidak dipakai.</p>
+    </div>
+  </div>
   <div class="space-bg" aria-hidden="true">
     <div class="space-layer space-stars space-far"></div>
     <div class="space-layer space-stars space-mid"></div>
