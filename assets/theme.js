@@ -5,15 +5,25 @@
 
   const DEFAULT_THEME = 'night';
   const STORAGE_KEY = 'arena-theme-v1';
-  const CACHE_VERSION = 'tema-20261006-11';
+  const CACHE_VERSION = 'tema-20261006-12';
   const THEMES = {
     night: { color: '#0B1730', scheme: 'dark', runtime: './assets/space.js' },
     day: { color: '#7BCBF2', scheme: 'light', runtime: './assets/day.js' }
   };
   const root = document.documentElement;
+  /* Kelas dipasang sebelum render pertama; loader.js akan melepasnya setelah aset siap. */
+  root.classList.add('arena-loading');
+  /* Pengaman: bila loader gagal karena berkas tidak terunggah/skrip rusak, jangan pernah mengunci halaman. */
+  window.setTimeout(function () {
+    if (!root.classList.contains('arena-loading')) return;
+    root.classList.remove('arena-loading');
+    root.classList.add('arena-ready');
+    root.setAttribute('data-loader-ready', 'fallback');
+  }, 40000);
   const reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   let toastTimer = 0;
   let initialRuntimeWritten = false;
+  let themeChangePending = false;
 
   function validTheme(value) {
     return value === 'day' || value === 'night' ? value : DEFAULT_THEME;
@@ -182,40 +192,66 @@
   function fallbackFade(theme) {
     if (!document.body || !document.body.animate) {
       commitTheme(theme, true);
-      return;
+      return Promise.resolve();
     }
     const out = document.body.animate([{ opacity: 1 }, { opacity: 0.08 }], {
       duration: 180,
       easing: 'ease',
       fill: 'forwards'
     });
-    out.finished.catch(function () {}).then(function () {
+    return out.finished.catch(function () {}).then(function () {
       commitTheme(theme, true);
-      document.body.animate([{ opacity: 0.08 }, { opacity: 1 }], {
+      const fadeIn = document.body.animate([{ opacity: 0.08 }, { opacity: 1 }], {
         duration: 220,
         easing: 'ease',
         fill: 'both'
       });
+      return fadeIn.finished.catch(function () {});
     });
   }
 
-  function changeTheme(theme) {
-    const next = validTheme(theme);
-    if (next === root.getAttribute('data-theme')) return;
+  function performThemeChange(theme) {
     const motionReduced = !!(reduceMotion && reduceMotion.matches);
     if (motionReduced) {
-      commitTheme(next, true);
-      return;
+      commitTheme(theme, true);
+      return Promise.resolve();
     }
 
     if (document.startViewTransition) {
       const transition = document.startViewTransition(function () {
-        commitTheme(next, true);
+        commitTheme(theme, true);
       });
-      transition.finished.catch(function () {});
-      return;
+      return transition.finished.catch(function () {});
     }
-    fallbackFade(next);
+    return fallbackFade(theme);
+  }
+
+  function changeTheme(theme) {
+    const next = validTheme(theme);
+    if (next === root.getAttribute('data-theme') || themeChangePending) return;
+
+    const button = document.getElementById('theme-toggle');
+    const loader = window.ArenaAssetLoader;
+    const preparation = loader && typeof loader.prepareTheme === 'function'
+      ? loader.prepareTheme(next, { show: true })
+      : Promise.resolve();
+
+    themeChangePending = true;
+    if (button) {
+      button.disabled = true;
+      button.setAttribute('aria-busy', 'true');
+    }
+
+    Promise.resolve(preparation)
+      .catch(function () { /* Fallback tema tetap dapat dipakai bila pramuat gagal. */ })
+      .then(function () { return performThemeChange(next); })
+      .finally(function () {
+        themeChangePending = false;
+        if (button) {
+          button.disabled = false;
+          button.removeAttribute('aria-busy');
+        }
+      });
   }
 
   function bindToggle() {

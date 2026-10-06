@@ -1,0 +1,269 @@
+/* Layar pemuatan Arena Belajar.
+   Konten utama baru dibuka setelah aset tema aktif, data, gambar koleksi,
+   font, dan audio umum selesai disiapkan oleh assets/loader.js. */
+.site-loader {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  place-items: center;
+  min-height: 100dvh;
+  padding: clamp(16px, 4vw, 48px);
+  overflow: hidden;
+  color: #f7fbff;
+  background:
+    linear-gradient(120deg, rgba(22, 84, 155, .48), rgba(10, 23, 48, .70)),
+    #0b1730;
+  isolation: isolate;
+}
+
+.site-loader::before {
+  content: "";
+  position: absolute;
+  inset: -2%;
+  z-index: -2;
+  background: url('./loading/arena-loading.webp?v=tema-20261006-12') center / cover no-repeat;
+  filter: saturate(1.04) blur(1.5px);
+  transform: scale(1.035);
+}
+
+.site-loader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 22% 22%, rgba(255, 224, 118, .22), transparent 30%),
+    radial-gradient(circle at 80% 18%, rgba(102, 188, 255, .18), transparent 33%),
+    linear-gradient(90deg, rgba(9, 35, 65, .18), rgba(11, 23, 48, .50) 45%, rgba(11, 23, 48, .58) 55%, rgba(9, 25, 60, .28));
+}
+
+html.arena-loading,
+html.arena-theme-loading {
+  overflow: hidden;
+}
+
+html.arena-loading .site-loader,
+html.arena-revealing .site-loader,
+html.arena-theme-loading .site-loader {
+  display: grid;
+}
+
+/* Pada muat pertama, halaman di belakang benar-benar disembunyikan agar tidak berkedip. */
+html.arena-loading body > :not(.site-loader) {
+  visibility: hidden;
+  opacity: 0;
+}
+
+html.arena-revealing body > :not(.site-loader) {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 400ms ease;
+}
+
+html.arena-revealing .site-loader {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+
+html.arena-theme-loading .site-loader {
+  background-color: rgba(11, 23, 48, .82);
+}
+
+.loader-card {
+  width: min(680px, 100%);
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: clamp(24px, 5vw, 38px);
+  padding: clamp(22px, 5vw, 42px);
+  text-align: center;
+  background: rgba(9, 29, 57, .86);
+  box-shadow:
+    0 28px 90px rgba(4, 18, 41, .38),
+    inset 0 1px 0 rgba(255, 255, 255, .25);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+}
+
+html[data-theme="day"] .loader-card {
+  color: #193b57;
+  border-color: rgba(255, 255, 255, .82);
+  background: rgba(245, 251, 255, .91);
+  box-shadow:
+    0 28px 90px rgba(31, 91, 145, .24),
+    inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+.loader-emblem {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #ffd45d, #ffae57);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .18);
+  color: #17395c;
+}
+
+.loader-emblem svg {
+  width: 42px;
+  height: 42px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.loader-kicker {
+  margin: 0 0 6px;
+  font: 800 .78rem/1.2 "Nunito", system-ui, sans-serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #ffd45d;
+}
+
+html[data-theme="day"] .loader-kicker {
+  color: #184c94;
+}
+
+.loader-title {
+  margin: 0;
+  font: 800 clamp(2rem, 7vw, 3.5rem)/.98 "Baloo 2", "Nunito", system-ui, sans-serif;
+  letter-spacing: -.025em;
+}
+
+.loader-copy {
+  margin: 12px auto 22px;
+  max-width: 48ch;
+  font-size: clamp(.96rem, 2.4vw, 1.08rem);
+  line-height: 1.55;
+  color: rgba(239, 248, 255, .82);
+}
+
+html[data-theme="day"] .loader-copy {
+  color: #3f5f7c;
+}
+
+.loader-progress {
+  width: 100%;
+  height: 13px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .46);
+  border-radius: 999px;
+  background: rgba(3, 15, 35, .42);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, .22);
+}
+
+html[data-theme="day"] .loader-progress {
+  border-color: rgba(25, 59, 87, .18);
+  background: rgba(68, 118, 159, .15);
+}
+
+.loader-progress > span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #ffd45d, #74d5ff 58%, #a7f0d8);
+  box-shadow: 0 0 18px rgba(116, 213, 255, .38);
+  transition: width 180ms ease;
+}
+
+.loader-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 10px;
+  font-size: .9rem;
+}
+
+.loader-status {
+  min-height: 1.45em;
+  margin: 0;
+  text-align: left;
+  color: rgba(239, 248, 255, .82);
+}
+
+html[data-theme="day"] .loader-status {
+  color: #3f5f7c;
+}
+
+.loader-percent {
+  min-width: 3.6ch;
+  margin: 0;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff;
+}
+
+html[data-theme="day"] .loader-percent {
+  color: #184c94;
+}
+
+.loader-tip {
+  margin: 18px 0 0;
+  font-size: .82rem;
+  line-height: 1.45;
+  color: rgba(239, 248, 255, .66);
+}
+
+html[data-theme="day"] .loader-tip {
+  color: #55718a;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .loader-card { background: #10294c; }
+  html[data-theme="day"] .loader-card { background: #f7fbff; }
+}
+
+@media (max-width: 600px) {
+  .site-loader { padding: 14px; }
+  .site-loader::before { background-position: 48% center; }
+  .loader-card { border-radius: 24px; padding: 24px 20px; }
+  .loader-emblem { width: 60px; height: 60px; border-radius: 20px; }
+  .loader-emblem svg { width: 34px; height: 34px; }
+  .loader-meta { font-size: .82rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-progress > span,
+  html.arena-revealing body > :not(.site-loader),
+  html.arena-revealing .site-loader {
+    transition: none !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .loader-card,
+  html[data-theme="day"] .loader-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .loader-card { background: rgba(9, 29, 57, .97); }
+  html[data-theme="day"] .loader-card { background: rgba(248, 252, 255, .98); }
+}
+
+@media (prefers-contrast: more) {
+  .loader-card {
+    border: 2px solid currentColor;
+    box-shadow: none;
+  }
+  .loader-progress { border: 2px solid currentColor; }
+}
+
+@media (forced-colors: active) {
+  .site-loader,
+  .loader-card,
+  .loader-progress,
+  .loader-progress > span,
+  .loader-emblem {
+    forced-color-adjust: auto;
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+    box-shadow: none;
+  }
+}
