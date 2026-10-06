@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" data-theme="night">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -10,12 +10,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Penanda versi meminta CSS kaca terbaru setelah pembaruan GitHub. -->
-  <link rel="stylesheet" href="./assets/style.css?v=sistem-kaca-20261006-8">
-  <script src="./assets/glass-settings.js?v=sistem-kaca-20261006-8"></script>
+  <!-- Tema dibaca sinkron sebelum CSS agar tidak berkedip saat memuat pilihan tersimpan. -->
+  <script src="./assets/theme.js?v=tema-20261006-10"></script>
+  <link rel="stylesheet" href="./assets/style.css?v=tema-20261006-10">
+  <link rel="stylesheet" href="./assets/day.css?v=tema-20261006-10">
+  <script src="./assets/glass-settings.js?v=tema-20261006-10"></script>
   <script src="./assets/app.js" defer></script>
   <script src="./assets/music.js" defer></script>
-  <script src="./assets/space.js" defer></script>
+  <!-- Runtime tema ditulis di posisi lama space.js agar urutan defer malam tetap terjaga. -->
+  <script>if(window.ArenaThemeRuntime){window.ArenaThemeRuntime();}</script>
   <noscript><style>.loading-state,.toolbar,.genre-bar,.results-label,.hero-stats,#tracklist-placeholder{display:none}.hero-actions #surprise-button{display:none}</style></noscript>
 </head>
 <body>
@@ -23,17 +26,31 @@
     <div class="space-layer space-stars space-far"></div>
     <div class="space-layer space-stars space-mid"></div>
     <div class="space-layer space-stars space-near"></div>
-    <div class="space-planet-layer space-mustard"><div class="space-float"><img class="space-orb" src="./assets/space-art/planet-mustard.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
-    <div class="space-planet-layer space-pink"><div class="space-float"><img class="space-orb" src="./assets/space-art/planet-pink.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
-    <div class="space-planet-layer space-teal"><div class="space-float"><img class="space-orb" src="./assets/space-art/planet-teal.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"><div class="space-moon-orbit"><span class="space-moon"></span></div></div></div>
-    <div class="space-planet-layer space-purple"><div class="space-float"><img class="space-orb" src="./assets/space-art/planet-purple.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
-    <div class="space-planet-layer space-moon-body"><div class="space-float"><img class="space-orb" src="./assets/space-art/moon.webp" width="480" height="480" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
-    <div class="space-planet-layer space-satellite"><div class="space-float"><img class="space-orb" src="./assets/space-art/satellite.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="space-planet-layer space-mustard"><div class="space-float"><img class="space-orb" data-theme-src-night="./assets/space-art/planet-mustard.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="space-planet-layer space-pink"><div class="space-float"><img class="space-orb" data-theme-src-night="./assets/space-art/planet-pink.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="space-planet-layer space-teal"><div class="space-float"><img class="space-orb" data-theme-src-night="./assets/space-art/planet-teal.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"><div class="space-moon-orbit"><span class="space-moon"></span></div></div></div>
+    <div class="space-planet-layer space-purple"><div class="space-float"><img class="space-orb" data-theme-src-night="./assets/space-art/planet-purple.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="space-planet-layer space-moon-body"><div class="space-float"><img class="space-orb" data-theme-src-night="./assets/space-art/moon.webp" width="480" height="480" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="space-planet-layer space-satellite"><div class="space-float"><img class="space-orb" data-theme-src-night="./assets/space-art/satellite.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+  </div>
+  <div class="day-bg" aria-hidden="true" hidden>
+    <div class="day-layer day-cloud day-cloud-one" data-day-depth="0.05"><div class="day-float"><img data-theme-src-day="./assets/day-art/awan-1.webp" width="800" height="480" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="day-layer day-cloud day-cloud-two" data-day-depth="0.10"><div class="day-float"><img data-theme-src-day="./assets/day-art/awan-2.webp" width="800" height="480" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="day-layer day-cloud day-cloud-three" data-day-depth="0.15"><div class="day-float"><img data-theme-src-day="./assets/day-art/awan-3.webp" width="800" height="480" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="day-layer day-castle" data-day-depth="0.08"><div class="day-float"><img data-theme-src-day="./assets/day-art/kastil.webp" width="900" height="900" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="day-layer day-dragon" data-day-depth="0.14"><div class="day-float"><img data-theme-src-day="./assets/day-art/naga-kecil.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="day-layer day-monster day-slime" data-day-depth="0.18"><div class="day-float"><img data-theme-src-day="./assets/day-art/monster-slime.webp" width="480" height="480" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="day-layer day-monster day-fur" data-day-depth="0.12"><div class="day-float"><img data-theme-src-day="./assets/day-art/monster-bulu.webp" width="480" height="480" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="day-layer day-monster day-mushroom" data-day-depth="0.20"><div class="day-float"><img data-theme-src-day="./assets/day-art/monster-jamur.webp" width="480" height="480" alt="" decoding="async" fetchpriority="low" draggable="false"></div></div>
+    <div class="day-flying-dragon"><img data-theme-src-day="./assets/day-art/naga-kecil.webp" width="640" height="640" alt="" decoding="async" fetchpriority="low" draggable="false"></div>
   </div>
   <!-- Satu set ikon garis; semua ikon dekoratif disembunyikan dari pembaca layar. -->
   <svg class="svg-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <symbol id="icon-record" viewBox="0 0 24 24"><path d="M8 15c-1-6 4-11 12-12 1 8-4 13-10 12zm0 0-3 3M8 8H4l-2 6 6-1M15 16v4l-6 2 1-6M4 18l-2 4 4-2"/><circle cx="15" cy="8" r="2"/></symbol>
+      <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5.1-3.2 8.5-8 10-4.8-1.5-8-4.9-8-10V6z"/><path d="M9 12.5 11 14.5 15.5 9.5"/></symbol>
+      <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></symbol>
+      <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M20.2 15.2A8.5 8.5 0 0 1 8.8 3.8 8.5 8.5 0 1 0 20.2 15.2z"/></symbol>
       <symbol id="icon-worksheet" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h5"/></symbol>
       <symbol id="icon-mpi" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4m-2-13 5 3-5 3z"/></symbol>
       <symbol id="icon-game" viewBox="0 0 24 24"><path d="M7 7h10c2 0 3 2 4 7s-1 6-4 3l-2-2H9l-2 2c-3 3-5 2-4-3S5 7 7 7zM7 10v5M4.5 12.5h5M16 11h.1M18 14h.1"/></symbol>
@@ -58,9 +75,12 @@
   <a class="skip-link" href="#koleksi">Langsung ke Arena Bermain</a>
   <header class="site-header">
     <div class="header-main shell">
-      <a class="brand" href="./" aria-label="Arena Belajar, beranda"><span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#icon-record"/></svg></span><span>Arena<br><strong>Belajar</strong></span></a>
+      <a class="brand" href="./" aria-label="Arena Belajar, beranda"><span class="brand-mark"><svg class="icon" aria-hidden="true"><use id="brand-icon-use" href="#icon-record"/></svg></span><span>Arena<br><strong>Belajar</strong></span></a>
       <nav class="primary-nav" aria-label="Navigasi utama"><a href="#koleksi">Arena Bermain</a><a href="#tracklist">Daftar Petualangan</a><a href="#tentang">Tentang Arena</a></nav>
-      <a class="admin-link" href="./admin/">Ruang Admin<svg class="icon" aria-hidden="true"><use href="#icon-up-right"/></svg></a>
+      <div class="header-actions">
+        <button class="admin-link theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Ganti ke mode siang" title="Ganti ke mode siang"><svg class="icon" aria-hidden="true"><use id="theme-icon-use" href="#icon-sun"/></svg></button>
+        <a class="admin-link" href="./admin/">Ruang Admin<svg class="icon" aria-hidden="true"><use href="#icon-up-right"/></svg></a>
+      </div>
     </div>
   </header>
   <main>
@@ -69,19 +89,19 @@
         <div class="space-reading">
         <p class="eyebrow">HALO, PENJELAJAH KECIL!</p>
         <h1 id="hero-title">Belajar seru.<br>Petualangan <span>baru!</span></h1>
-        <p class="hero-text">Ayo masuk ke Arena Belajar! Pilih petualanganmu, mainkan rasa ingin tahu, dan temukan hal baru bersama teman astronot kita.</p>
+        <p class="hero-text" data-theme-text-night="Ayo masuk ke Arena Belajar! Pilih petualanganmu, mainkan rasa ingin tahu, dan temukan hal baru bersama teman astronot kita." data-theme-text-day="Ayo masuk ke Arena Belajar! Pilih petualanganmu, mainkan rasa ingin tahu, dan temukan hal baru bersama ksatria kecil dan kucing penyihir kita.">Ayo masuk ke Arena Belajar! Pilih petualanganmu, mainkan rasa ingin tahu, dan temukan hal baru bersama teman astronot kita.</p>
         </div>
         <div class="hero-actions"><a class="button primary" id="explore-button" href="#koleksi">Mulai petualangan<svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a><button class="button secondary" id="surprise-button" type="button" disabled>Pilihkan untuk saya<svg class="icon" aria-hidden="true"><use href="#icon-shuffle"/></svg></button></div>
         <dl class="hero-stats"><div><dt>Koleksi belajar</dt><dd id="total-collections">—</dd></div><div><dt>Wahana terisi</dt><dd id="total-genres">—</dd></div></dl>
       </div>
       <div class="hero-art playground-scene">
-        <img class="space-hero-landscape" src="./assets/space-art/lunar-playground.webp" width="1200" height="800" alt="" aria-hidden="true" decoding="async" draggable="false">
-        <img class="space-hero-planet" src="./assets/space-art/planet-mustard.webp" width="640" height="640" alt="" aria-hidden="true" decoding="async" fetchpriority="low" draggable="false">
-        <img class="space-hero-satellite" src="./assets/space-art/satellite.webp" width="640" height="640" alt="" aria-hidden="true" decoding="async" fetchpriority="low" draggable="false">
-        <span class="scene-bubble bubble-one">Siap menjelajah?</span>
+        <img class="space-hero-landscape" data-theme-src-night="./assets/space-art/lunar-playground.webp" data-theme-src-day="./assets/day-art/hero-kerajaan.webp" width="1200" height="800" alt="" aria-hidden="true" decoding="async" draggable="false">
+        <img class="space-hero-planet" data-theme-src-night="./assets/space-art/planet-mustard.webp" data-theme-src-day="./assets/day-art/kastil.webp" width="640" height="640" alt="" aria-hidden="true" decoding="async" fetchpriority="low" draggable="false">
+        <img class="space-hero-satellite" data-theme-src-night="./assets/space-art/satellite.webp" data-theme-src-day="./assets/day-art/naga-kecil.webp" width="640" height="640" alt="" aria-hidden="true" decoding="async" fetchpriority="low" draggable="false">
+        <span class="scene-bubble bubble-one" data-theme-text-night="Siap menjelajah?" data-theme-text-day="Siap berpetualang?">Siap menjelajah?</span>
         <div id="hero-fan" class="mascot-team">
-          <img class="mascot mascot-child" src="./assets/mascots/astronot-cilik.webp" width="900" height="1125" alt="Maskot anak astronot tersenyum sambil membawa bintang kuning" fetchpriority="high" decoding="async">
-          <img class="mascot mascot-cat" src="./assets/mascots/kucing-astronot.webp" width="820" height="1025" alt="Maskot kucing astronot melambaikan tangan" decoding="async">
+          <img class="mascot mascot-child" data-theme-src-night="./assets/mascots/astronot-cilik.webp" data-theme-src-day="./assets/mascots/ksatria-cilik.webp" data-alt-night="Maskot anak astronot tersenyum sambil membawa bintang kuning" data-alt-day="Ksatria cilik ramah membawa pedang dan perisai" width="900" height="1125" alt="Maskot anak astronot tersenyum sambil membawa bintang kuning" fetchpriority="high" decoding="async">
+          <img class="mascot mascot-cat" data-theme-src-night="./assets/mascots/kucing-astronot.webp" data-theme-src-day="./assets/mascots/kucing-penyihir.webp" data-alt-night="Maskot kucing astronot melambaikan tangan" data-alt-day="Kucing penyihir ramah menemani petualangan" width="820" height="1025" alt="Maskot kucing astronot melambaikan tangan" decoding="async">
         </div>
         <span class="scene-bubble bubble-two">Belajar + bermain!</span>
         <div class="scene-caption"><svg class="icon" aria-hidden="true"><use href="#icon-play"/></svg>Petualangan dimulai dari rasa ingin tahu.</div>
@@ -125,7 +145,7 @@
       </div>
     </section>
     <section class="tracklist-section shell space-readable" id="tracklist" aria-labelledby="tracklist-title" data-reveal><div class="section-heading"><div><p class="eyebrow">LANJUTKAN RASA INGIN TAHUMU</p><h2 id="tracklist-title">Daftar Petualangan.</h2><p>Daftar lengkap sesuai pencarian dan wahana pilihanmu.</p></div><span id="tracklist-count" class="label"></span></div><ol id="tracklist-items" class="tracklist-items"></ol><p id="tracklist-placeholder" class="tracklist-placeholder">Daftar akan tersedia setelah koleksi berhasil dimuat.</p></section>
-    <section class="liner-notes shell" id="tentang" aria-labelledby="notes-title" data-reveal><div class="notes-art"><img src="./assets/mascots/kucing-astronot.webp" width="820" height="1025" alt="Kucing astronot, teman bermain di Arena Belajar" loading="lazy" decoding="async"><span>BERANI MENCOBA.<br>SENANG BELAJAR.</span></div><div class="notes-copy"><p class="eyebrow">SATU ARENA, BANYAK PENEMUAN</p><h2 id="notes-title">Tentang Arena.</h2><p>Setiap pertanyaan adalah awal petualangan. Arena Belajar menjadi tempat untuk mencoba, bermain, dan memahami hal baru lewat beragam media — untuk siswa yang ingin menjelajah dan guru yang ingin menginspirasi.</p><div class="creator-card"><span class="creator-monogram" aria-hidden="true">YK</span><div><strong>Yudi Kurniawan</strong><span>Guru IPA · SMP Negeri 3 Segedong</span><span>Kreator Arena Belajar</span></div></div><a class="button primary" href="#koleksi">Mulai penemuanmu<svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></div></section>
+    <section class="liner-notes shell" id="tentang" aria-labelledby="notes-title" data-reveal><div class="notes-art"><img data-theme-src-night="./assets/mascots/kucing-astronot.webp" data-theme-src-day="./assets/mascots/kucing-penyihir.webp" data-alt-night="Kucing astronot, teman bermain di Arena Belajar" data-alt-day="Kucing penyihir, teman berpetualang di Arena Belajar" width="820" height="1025" alt="Kucing astronot, teman bermain di Arena Belajar" loading="lazy" decoding="async"><span>BERANI MENCOBA.<br>SENANG BELAJAR.</span></div><div class="notes-copy"><p class="eyebrow">SATU ARENA, BANYAK PENEMUAN</p><h2 id="notes-title">Tentang Arena.</h2><p>Setiap pertanyaan adalah awal petualangan. Arena Belajar menjadi tempat untuk mencoba, bermain, dan memahami hal baru lewat beragam media — untuk siswa yang ingin menjelajah dan guru yang ingin menginspirasi.</p><div class="creator-card"><span class="creator-monogram" aria-hidden="true">YK</span><div><strong>Yudi Kurniawan</strong><span>Guru IPA · SMP Negeri 3 Segedong</span><span>Kreator Arena Belajar</span></div></div><a class="button primary" href="#koleksi">Mulai penemuanmu<svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a></div></section>
   </main>
   <footer class="site-footer shell space-readable"><a class="footer-brand" href="./">Arena Belajar</a><p>Belajar. Bermain. Bertumbuh.</p><a class="footer-top" href="#hero-title">Kembali ke atas<svg class="icon" aria-hidden="true"><use href="#icon-up-right"/></svg></a></footer>
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
