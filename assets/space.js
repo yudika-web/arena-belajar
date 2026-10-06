@@ -20,6 +20,8 @@
 	const METEOR_LIMIT={ desktop: 2, mobile: 1 };
 	const METEOR_INTERVAL=[3000, 7000], METEOR_DURATION=[1200, 2000], METEOR_LENGTH=[120, 180];
 	const METEOR_BURST_CHANCE=0.18;
+	const THEME_EVENT='arena:themechange', NIGHT_THEME='night';
+	const root=document.documentElement;
 	const bg=document.querySelector('.space-bg');
 	if (!bg) return;
 	const stars=[...bg.querySelectorAll('.space-stars')];
@@ -29,9 +31,10 @@
 	const random=(min, max)=>min+Math.random()*(max-min);
 	const modulo=(value, size)=>((value % size)+size) % size;
 	let width=innerWidth, height=innerHeight, mobile=width<=MOBILE_WIDTH;
-	let scroll=window.scrollY, frame=0, timer=0, listening=false;
+	let scroll=window.scrollY, frame=0, timer=0, listening=false, starsDirty=false;
 	let x=0, y=0, targetX=0, targetY=0;
-	const running=()=>!document.hidden&&!reduced.matches;
+	const nightActive=()=>root.getAttribute('data-theme')===NIGHT_THEME;
+	const running=()=>nightActive()&&!document.hidden&&!reduced.matches;
 	const pool=Array.from({ length: METEOR_LIMIT.desktop }, ()=>{
 		const el=document.createElement('span');
 		el.className='space-meteor';
@@ -113,10 +116,12 @@
 	function leave() { targetX=targetY=0; requestFrame(); }
 	function sync() {
 		cancelAnimationFrame(frame); frame=0;
+		if (nightActive()&&starsDirty) { buildStars(); starsDirty=false; }
 		clearTimeout(timer); timer=0;
 		pool.forEach(slot=>{ slot.busy=false; slot.el.classList.remove('space-active'); });
-		bg.classList.toggle('space-paused', document.hidden);
-		document.body.classList.toggle('space-page-paused', document.hidden);
+		const paused=!nightActive()||document.hidden;
+		bg.classList.toggle('space-paused', paused);
+		document.body.classList.toggle('space-page-paused', paused);
 		bg.classList.toggle('space-static', reduced.matches);
 		document.body.classList.toggle('space-page-static', reduced.matches);
 		const allowPointer=running()&&fine.matches;
@@ -140,9 +145,14 @@
 	window.addEventListener('resize', ()=>{
 		width=innerWidth; height=innerHeight;
 		const next=width<=MOBILE_WIDTH;
-		if (next!==mobile) { mobile=next; buildStars(); }
+		if (next!==mobile) {
+			mobile=next;
+			if (nightActive()) buildStars();
+			else starsDirty=true;
+		}
 		sync();
 	}, { passive: true });
+	window.addEventListener(THEME_EVENT, sync);
 	document.addEventListener('visibilitychange', sync);
 	reduced.addEventListener('change', sync);
 	fine.addEventListener('change', sync);

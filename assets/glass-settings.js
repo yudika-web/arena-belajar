@@ -1,46 +1,103 @@
 /* Pengaturan tampilan kaca: transparansi panel dan kecerahan latar.
-   Nilai tersimpan di perangkat (localStorage) dan hanya mengubah dua variabel CSS:
-   --glass-clear (0 pekat … 1 bening) dan --bg-bright (0 gelap … 1 terang).
+   Nilai disimpan per tema pada localStorage kunci arena-glass-v1.
+   --glass-clear: 0 pekat … 1 bening; --bg-bright: 0 teduh/gelap … 1 terang.
    Dimuat tanpa defer di <head> agar nilai tersimpan dipakai sebelum halaman digambar. */
 (function () {
   'use strict';
 
   var KEY = 'arena-glass-v1';
-  var DEFAULTS = { clear: 70, bright: 75 }; /* samakan dengan :root di style.css */
+  var DEFAULTS = {
+    night: { clear: 70, bright: 75 }, /* sama dengan :root malam di style.css */
+    day: { clear: 55, bright: 80 }    /* sama dengan html[data-theme="day"] di day.css */
+  };
   var root = document.documentElement;
+  var frame = 0;
+  var controls = null;
+
+  function getTheme() {
+    return root.getAttribute('data-theme') === 'day' ? 'day' : 'night';
+  }
 
   function clamp(value, fallback) {
     var n = Number(value);
     return isFinite(n) ? Math.min(100, Math.max(0, Math.round(n))) : fallback;
   }
 
-  function load() {
+  function cleanState(value, theme) {
+    var fallback = DEFAULTS[theme];
+    value = value && typeof value === 'object' ? value : {};
+    return {
+      clear: clamp(value.clear, fallback.clear),
+      bright: clamp(value.bright, fallback.bright)
+    };
+  }
+
+  function loadAll() {
     try {
       var raw = window.localStorage.getItem(KEY);
       if (raw) {
         var saved = JSON.parse(raw);
-        return { clear: clamp(saved.clear, DEFAULTS.clear), bright: clamp(saved.bright, DEFAULTS.bright) };
+        /* Migrasi V6: bentuk lama {clear, bright} dianggap sebagai nilai mode malam. */
+        if (saved && (saved.clear !== undefined || saved.bright !== undefined)) {
+          return { night: cleanState(saved, 'night') };
+        }
+        return {
+          night: saved && saved.night ? cleanState(saved.night, 'night') : null,
+          day: saved && saved.day ? cleanState(saved.day, 'day') : null
+        };
       }
-    } catch (error) { /* penyimpanan tidak tersedia: pakai bawaan */ }
-    return { clear: DEFAULTS.clear, bright: DEFAULTS.bright };
+    } catch (error) {
+      /* Penyimpanan tidak tersedia: pakai bawaan. */
+    }
+    return { night: null, day: null };
   }
 
-  function save(state) {
-    try { window.localStorage.setItem(KEY, JSON.stringify(state)); } catch (error) { /* diabaikan */ }
-  }
+  var savedStates = loadAll();
+  var mode = getTheme();
+  var state = cleanState(savedStates[mode], mode);
 
-  function forget() {
-    try { window.localStorage.removeItem(KEY); } catch (error) { /* diabaikan */ }
+  function save() {
+    savedStates[mode] = { clear: state.clear, bright: state.bright };
+    try {
+      window.localStorage.setItem(KEY, JSON.stringify(savedStates));
+    } catch (error) {
+      /* Penyimpanan dapat diblokir tanpa mengganggu kontrol. */
+    }
   }
-
-  var state = load();
-  var frame = 0;
 
   function apply() {
     root.style.setProperty('--glass-clear', (state.clear / 100).toFixed(2));
     root.style.setProperty('--bg-bright', (state.bright / 100).toFixed(2));
   }
   apply();
+
+  function updateCopy() {
+    if (!controls) return;
+    controls.brightHint.textContent = mode === 'day'
+      ? '0% teduh bernuansa sore; 100% terik cerah.'
+      : 'Makin tinggi, makin terang di balik panel.';
+    controls.auto.textContent = mode === 'day'
+      ? 'Saat lanskap lebih teduh, batas bawah alpha putih otomatis dinaikkan agar teks gelap tetap terbaca.'
+      : 'Saat latar terang, panel otomatis dijaga cukup pekat agar teks tetap terbaca.';
+  }
+
+  function show() {
+    if (!controls) return;
+    controls.clear.value = state.clear;
+    controls.bright.value = state.bright;
+    controls.clearOut.textContent = state.clear + '%';
+    controls.brightOut.textContent = state.bright + '%';
+    controls.clear.setAttribute('aria-valuetext', state.clear + ' persen');
+    controls.bright.setAttribute('aria-valuetext', state.bright + ' persen');
+    updateCopy();
+  }
+
+  function switchMode(nextMode) {
+    mode = nextMode === 'day' ? 'day' : 'night';
+    state = cleanState(savedStates[mode], mode);
+    apply();
+    show();
+  }
 
   function build() {
     if (document.querySelector('.glass-settings')) return;
@@ -58,9 +115,9 @@
         '<p class="glass-hint">Makin tinggi, makin bening.</p>' +
         '<div class="glass-row"><label for="glass-bright">Kecerahan latar</label><output for="glass-bright" id="glass-bright-out"></output></div>' +
         '<input id="glass-bright" type="range" min="0" max="100" step="5">' +
-        '<p class="glass-hint">Makin tinggi, makin terang di balik panel.</p>' +
+        '<p class="glass-hint glass-bright-hint"></p>' +
         '<p class="glass-note" id="glass-note" hidden></p>' +
-        '<p class="glass-auto">Saat latar terang, panel otomatis dijaga cukup pekat agar teks tetap terbaca.</p>' +
+        '<p class="glass-auto"></p>' +
         '<div class="glass-actions"><button type="button" class="glass-reset">Atur ulang</button><button type="button" class="glass-close">Tutup</button></div>' +
       '</div>';
     document.body.appendChild(box);
@@ -73,14 +130,14 @@
     var brightOut = box.querySelector('#glass-bright-out');
     var note = box.querySelector('#glass-note');
 
-    function show() {
-      clear.value = state.clear;
-      bright.value = state.bright;
-      clearOut.textContent = state.clear + '%';
-      brightOut.textContent = state.bright + '%';
-      clear.setAttribute('aria-valuetext', state.clear + ' persen');
-      bright.setAttribute('aria-valuetext', state.bright + ' persen');
-    }
+    controls = {
+      clear: clear,
+      bright: bright,
+      clearOut: clearOut,
+      brightOut: brightOut,
+      brightHint: box.querySelector('.glass-bright-hint'),
+      auto: box.querySelector('.glass-auto')
+    };
 
     function sync() {
       window.cancelAnimationFrame(frame);
@@ -99,11 +156,11 @@
     }
 
     function onInput() {
-      state.clear = clamp(clear.value, DEFAULTS.clear);
-      state.bright = clamp(bright.value, DEFAULTS.bright);
+      state.clear = clamp(clear.value, DEFAULTS[mode].clear);
+      state.bright = clamp(bright.value, DEFAULTS[mode].bright);
       show();
       sync();
-      save(state);
+      save();
     }
 
     /* Kontras tinggi memakai permukaan solid, jadi transparansi panel tidak berlaku. */
@@ -122,13 +179,18 @@
     toggle.addEventListener('click', function () { if (panel.hidden) open(); else close(false); });
     box.querySelector('.glass-close').addEventListener('click', function () { close(true); });
     box.querySelector('.glass-reset').addEventListener('click', function () {
-      state = { clear: DEFAULTS.clear, bright: DEFAULTS.bright };
-      show(); apply(); forget();
+      state = { clear: DEFAULTS[mode].clear, bright: DEFAULTS[mode].bright };
+      show();
+      apply();
+      save();
     });
     clear.addEventListener('input', onInput);
     bright.addEventListener('input', onInput);
     box.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && !panel.hidden) { event.stopPropagation(); close(true); }
+      if (event.key === 'Escape' && !panel.hidden) {
+        event.stopPropagation();
+        close(true);
+      }
     });
     document.addEventListener('pointerdown', function (event) {
       if (!panel.hidden && !box.contains(event.target)) close(false);
@@ -137,6 +199,10 @@
     show();
     updateNote();
   }
+
+  window.addEventListener('arena:themechange', function (event) {
+    switchMode(event.detail && event.detail.theme);
+  });
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
