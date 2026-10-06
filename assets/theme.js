@@ -5,7 +5,7 @@
 
   const DEFAULT_THEME = 'night';
   const STORAGE_KEY = 'arena-theme-v1';
-  const CACHE_VERSION = 'tema-20261006-10';
+  const CACHE_VERSION = 'tema-20261006-11';
   const THEMES = {
     night: { color: '#0B1730', scheme: 'dark', runtime: './assets/space.js' },
     day: { color: '#7BCBF2', scheme: 'light', runtime: './assets/day.js' }

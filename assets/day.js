@@ -18,7 +18,7 @@
   if (!background) return;
 
   const layers = Array.from(background.querySelectorAll('[data-day-depth]'));
-  const flyer = background.querySelector('.day-flying-dragon');
+  const dragon = background.querySelector('.day-dragon');
   const finePointer = window.matchMedia ? window.matchMedia(FINE_POINTER) : null;
   const reducedMotion = window.matchMedia ? window.matchMedia(REDUCED_MOTION) : null;
 
@@ -26,6 +26,7 @@
   let raf = 0;
   let flightRaf = 0;
   let flightTimer = 0;
+  let flightActive = false;
   let scrollY = window.scrollY || 0;
   let pointerX = 0;
   let pointerY = 0;
@@ -52,9 +53,10 @@
     layers.forEach(function (layer) {
       layer.style.transform = '';
     });
-    if (flyer) {
-      flyer.style.opacity = '0';
-      flyer.style.transform = '';
+    flightActive = false;
+    if (dragon) {
+      dragon.style.opacity = '';
+      dragon.style.transform = '';
     }
   }
 
@@ -66,6 +68,7 @@
     pointerY += (targetPointerY - pointerY) * 0.08;
 
     layers.forEach(function (layer) {
+      if (flightActive && layer === dragon) return;
       const depth = Number(layer.dataset.dayDepth) || 0;
       const scrollOffset = scrollY * depth * SCROLL_RANGE;
       const pointerScale = depth * POINTER_RANGE;
@@ -90,25 +93,28 @@
   function scheduleFlight() {
     window.clearTimeout(flightTimer);
     flightTimer = 0;
-    if (!active || !shouldRun() || !flyer) return;
+    if (!active || !shouldRun() || !dragon) return;
     const delay = randomBetween(DRAGON_GAP_MIN, DRAGON_GAP_MAX);
     flightTimer = window.setTimeout(startFlight, delay);
   }
 
   function startFlight() {
     flightTimer = 0;
-    if (!active || !shouldRun() || !flyer || flightRaf) return;
+    if (!active || !shouldRun() || !dragon || flightRaf) return;
 
+    flightActive = true;
     const start = performance.now();
     const duration = randomBetween(DRAGON_FLIGHT_MIN, DRAGON_FLIGHT_MAX);
     const top = randomBetween(12, 34);
+    const baseTop = window.matchMedia && window.matchMedia('(max-width:600px)').matches ? 31 : 28;
     const rise = randomBetween(-5, 8);
 
     function frame(now) {
       if (!active || !shouldRun()) {
         flightRaf = 0;
-        flyer.style.opacity = '0';
-        flyer.style.transform = '';
+        dragon.style.opacity = '';
+        dragon.style.transform = '';
+        flightActive = false;
         scheduleFlight();
         return;
       }
@@ -116,18 +122,19 @@
       const progress = Math.min(1, (now - start) / duration);
       const eased = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
       const x = -18 + eased * 136;
-      const y = top + rise * eased + Math.sin(progress * Math.PI * 2) * 1.6;
+      const y = top - baseTop + rise * eased + Math.sin(progress * Math.PI * 2) * 1.6;
       const visible = Math.min(1, progress * 8, (1 - progress) * 8);
 
-      flyer.style.opacity = Math.max(0, visible).toFixed(3);
-      flyer.style.transform = 'translate3d(' + x.toFixed(2) + 'vw,' + y.toFixed(2) + 'vh,0)';
+      dragon.style.opacity = Math.max(0, visible).toFixed(3);
+      dragon.style.transform = 'translate3d(' + x.toFixed(2) + 'vw,' + y.toFixed(2) + 'vh,0)';
 
       if (progress < 1) {
         flightRaf = window.requestAnimationFrame(frame);
       } else {
         flightRaf = 0;
-        flyer.style.opacity = '0';
-        flyer.style.transform = '';
+        dragon.style.opacity = '';
+        dragon.style.transform = '';
+        flightActive = false;
         scheduleFlight();
       }
     }
@@ -140,9 +147,10 @@
     flightTimer = 0;
     if (flightRaf) window.cancelAnimationFrame(flightRaf);
     flightRaf = 0;
-    if (flyer) {
-      flyer.style.opacity = '0';
-      flyer.style.transform = '';
+    flightActive = false;
+    if (dragon) {
+      dragon.style.opacity = '';
+      dragon.style.transform = '';
     }
   }
 
