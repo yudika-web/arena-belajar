@@ -608,6 +608,22 @@ select option{background:#142B40;color:var(--ink)}
     box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;
   }
 }
+/* Footer kaca (V6.1): padding sepadan panel lain dan tiga kolom seimbang, sehingga
+   slogan benar-benar di tengah. Ruang bawah menjaga panel tidak menempel ke dasar
+   halaman dan tidak tertutup tombol pengaturan kaca (46px + jarak 14px). */
+.site-footer{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px 24px;
+  padding:18px 28px;margin-bottom:calc(76px + env(safe-area-inset-bottom,0px));
+}
+.site-footer>a,.site-footer>p{padding:0;margin:0}
+.site-footer>.footer-brand{justify-self:start}
+.site-footer>p{justify-self:center;text-align:center;width:auto;order:0}
+.site-footer>.footer-top{justify-self:end}
+@media(max-width:800px){
+  .site-footer{grid-template-columns:1fr auto;padding:14px 20px 16px;row-gap:2px}
+  .site-footer>p{grid-column:1/-1;grid-row:2;width:100%}
+}
+
 /* Cadangan tanpa dukungan kaca: permukaan 84%, tanpa blur. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   :root{
