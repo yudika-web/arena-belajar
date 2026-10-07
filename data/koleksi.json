@@ -1,19 +1,5 @@
 [
   {
-    "title": "Respira Lab",
-    "category": "MPI",
-    "description": "Belajar seru sistem respirasi (pernapasan) pada manusia",
-    "image": "./assets/images/1791333860795-respira-lab.png",
-    "url": "https://yudika-web.github.io/mpi-lab-respirasi/",
-    "level": "SMP",
-    "duration": "Belajar mandiri",
-    "tags": [],
-    "date": "2026-10-07",
-    "cta": "Mulai belajar",
-    "newTab": true,
-    "id": "cd14ec94-d088-4dda-bb4f-d373cc38b936"
-  },
-  {
     "title": "Prompt Edu",
     "category": "Aplikasi",
     "description": "Media pembelajaran interaktif dan sumber belajar berbasis prompt untuk kegiatan pembelajaran.",
@@ -30,6 +16,20 @@
     "cta": "Buka media",
     "id": "prompt-edu",
     "newTab": true
+  },
+  {
+    "title": "Respira Lab",
+    "category": "MPI",
+    "description": "Belajar seru sistem respirasi (pernapasan) pada manusia",
+    "image": "./assets/images/1791333860795-respira-lab.png",
+    "url": "https://yudika-web.github.io/mpi-lab-respirasi/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-10-07",
+    "cta": "Mulai belajar",
+    "newTab": true,
+    "id": "cd14ec94-d088-4dda-bb4f-d373cc38b936"
   },
   {
     "title": "Imuno Wars",
