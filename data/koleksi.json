@@ -1,5 +1,19 @@
 [
   {
+    "title": "Jelajah Angkasa",
+    "category": "Worksheet",
+    "description": "Belajar Tata Surya lebih seru",
+    "image": "./assets/images/1792211240015-jelajah-angkasa.png",
+    "url": "https://yudika-web.github.io/game-jelajah-angkasa/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-10-17",
+    "cta": "Mulai belajar",
+    "newTab": true,
+    "id": "67ccd047-d886-49d2-8b43-13c0112df6ff"
+  },
+  {
     "title": "Prompt Edu",
     "category": "Aplikasi",
     "description": "Media pembelajaran interaktif dan sumber belajar berbasis prompt untuk kegiatan pembelajaran.",
