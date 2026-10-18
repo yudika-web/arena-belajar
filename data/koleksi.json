@@ -18,20 +18,6 @@
     "newTab": true
   },
   {
-    "title": "Jelajah Angkasa",
-    "category": "Worksheet",
-    "description": "Belajar Tata Surya lebih seru",
-    "image": "./assets/images/1792211240015-jelajah-angkasa.png",
-    "url": "https://yudika-web.github.io/game-jelajah-angkasa/",
-    "level": "SMP",
-    "duration": "Belajar mandiri",
-    "tags": [],
-    "date": "2026-10-17",
-    "cta": "Mulai belajar",
-    "newTab": true,
-    "id": "67ccd047-d886-49d2-8b43-13c0112df6ff"
-  },
-  {
     "title": "Imuno Wars",
     "category": "Game",
     "description": "Pertarungan imun melawan bakteri, virus dan patogen",
@@ -44,6 +30,20 @@
     "cta": "Mulai belajar",
     "newTab": true,
     "id": "93078d28-6b70-42dd-a7f6-190e5c37d949"
+  },
+  {
+    "title": "Jelajah Angkasa",
+    "category": "Worksheet",
+    "description": "Belajar Tata Surya lebih seru",
+    "image": "./assets/images/1792211240015-jelajah-angkasa.png",
+    "url": "https://yudika-web.github.io/game-jelajah-angkasa/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-10-17",
+    "cta": "Mulai belajar",
+    "newTab": true,
+    "id": "67ccd047-d886-49d2-8b43-13c0112df6ff"
   },
   {
     "title": "Jelajah Gaya",
