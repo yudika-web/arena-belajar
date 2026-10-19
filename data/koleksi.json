@@ -1,5 +1,19 @@
 [
   {
+    "title": "Blok Raya",
+    "category": "Game",
+    "description": "Jelajah Kota Sambil Belajar",
+    "image": "./assets/images/1792421092306-blok-raya.png",
+    "url": "https://yudika-web.github.io/blok-raya-preview/",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-10-19",
+    "cta": "Mulai belajar",
+    "newTab": true,
+    "id": "3c29f1c6-a630-4703-94de-a631a11a3024"
+  },
+  {
     "title": "Prompt Edu",
     "category": "Aplikasi",
     "description": "Media pembelajaran interaktif dan sumber belajar berbasis prompt untuk kegiatan pembelajaran.",
