@@ -1,5 +1,19 @@
 [
   {
+    "title": "Gala Quiz",
+    "category": "Aplikasi",
+    "description": "Kuis dan CBT Offline buat sekolah yang bermasalah di koneksi Internet",
+    "image": "./assets/images/1795083583702-gala-quiz.png",
+    "url": "https://drive.google.com/drive/folders/1dxOZ0rXc6rVz8a6a31M5x6NnyhipPP1F?usp=drive_link",
+    "level": "SMP",
+    "duration": "Belajar mandiri",
+    "tags": [],
+    "date": "2026-11-19",
+    "cta": "Mulai belajar",
+    "newTab": true,
+    "id": "d8d736d7-83da-40d3-8340-4ffc84f72bdc"
+  },
+  {
     "title": "Blok Raya",
     "category": "Game",
     "description": "Jelajah Kota Sambil Belajar",
